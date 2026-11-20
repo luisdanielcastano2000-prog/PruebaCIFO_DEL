@@ -7,7 +7,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ## Estado actual
 - **Fase:** 3 · Base de datos (MongoDB). En curso (trabajo autónomo de Claude).
-- **Siguiente paso:** 3.3 · Sustituir el array del service por MongoDB.
+- **Siguiente paso:** 3.4 · Comprobar que los datos sobreviven al reinicio.
 - **Procesos corriendo:** MongoDB (`mongod`, puerto 27017) y servidor NestJS (puerto 3000), ambos arrancados por Claude en segundo plano.
 - **Pendiente de decidir:** nada.
 - **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Todo subido hasta `Mensajes de error en español` (push aprobado por el usuario).
@@ -52,6 +52,10 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | 2026-11-20 | **Fase 3 completa en trabajo autónomo** (instalaciones incluidas), con commits locales por paso. | Pedido explícito del usuario ("instálalo todo tú y haz la fase 3 completa"). |
 | 2026-11-20 | MongoDB 9.0.8 (la versión estable más reciente en la web oficial). | Regla 4 de `CLAUDE.md`: versiones estables actuales. |
 | 2026-11-20 | `mongod` escucha solo en el propio Mac, en IPv4 y en IPv6 (`--bind_ip localhost --ipv6`). | En el Mac "localhost" puede ser `127.0.0.1` o `::1`; así Compass y NestJS conectan con `localhost` sin fallos. Nadie de fuera del Mac puede conectarse. |
+| 2026-11-20 | `schemas/product.schema.ts` sustituye a `entities/product.entity.ts` (borrado; sigue en el historial de Git). La lista de categorías pasa al schema. | Lo marcaba `CLAUDE.md`. |
+| 2026-11-20 | Schema con `timestamps: true` y `versionKey: false`; reglas también en el schema (`required`, `min`, `enum`, `maxlength`); al editar, `runValidators: true`. | Respuestas idénticas a la fase 2 (sin el campo interno `__v`) y una última red de seguridad en la propia base de datos. |
+| 2026-11-20 | Un id con formato no válido para MongoDB responde **404** (no 500). | Mismo comportamiento que en la fase 2. |
+| 2026-11-20 | La base empieza **vacía**: no se cargan los 3 productos de ejemplo. | Así el usuario ve la lección de la fase 3: `catalogo_tech` aparece en Compass solo al guardar el primer producto. |
 | 2026-11-20 | Claude nunca hace push sin aprobación del usuario. Añadido a la regla 6 de `CLAUDE.md`. | Push publica en internet. |
 
 ---
@@ -154,3 +158,8 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
   - Log de NestJS: "MongooseCoreModule dependencies initialized"; log de MongoDB: conexión aceptada desde `[::1]` con el driver de Mongoose (el ajuste de IPv6 del 3.1 era necesario).
   - Comprobado: `catalogo_tech` **no existe todavía** (solo `admin`, `config`, `local`): MongoDB crea la base al guardar el primer documento.
   - **3.2 completado.** Commit local `Paso 3.2: conectar NestJS con MongoDB`.
+- **3.3 · Array → MongoDB**
+  - Nuevos/cambiados: `schemas/product.schema.ts`, `products.module.ts` (`MongooseModule.forFeature`), `products.service.ts` (métodos `async` con el modelo de Mongoose). Borrado `entities/product.entity.ts`. El DTO importa las categorías del schema.
+  - Comprobado con `curl`: GET (lista vacía), POST → 201, GET uno, PATCH (cambia `updatedAt`), 400 en español, 404 con id raro e inexistente, DELETE → 200. Mismo formato que en la fase 2.
+  - Comprobado simulando la web con `jsdom`: todo funciona **sin tocar el frontend** (lista vacía → "Todavía no hay productos").
+  - **3.3 completado.** Commit local `Paso 3.3: productos guardados en MongoDB`.

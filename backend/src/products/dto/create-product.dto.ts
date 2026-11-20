@@ -8,8 +8,8 @@ import {
   MaxLength,
   Min,
 } from 'class-validator';
-import { PRODUCT_CATEGORIES } from '../entities/product.entity.js';
-import type { ProductCategory } from '../entities/product.entity.js';
+import { PRODUCT_CATEGORIES } from '../schemas/product.schema.js';
+import type { ProductCategory } from '../schemas/product.schema.js';
 
 // DTO = forma y reglas de los datos que llegan para CREAR un producto.
 // Son las mismas reglas que el formulario, repetidas aquí porque el frontend se puede saltar

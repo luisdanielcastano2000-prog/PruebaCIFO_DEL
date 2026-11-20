@@ -114,7 +114,7 @@ Comprobar: Node.js LTS.
 - [x] 2.2 API de productos (CRUD) con los datos en un array del service; DTOs y validación. Probar sin frontend (navegador para GET, `curl` para el resto).
 - [x] 2.3 Conectar frontend y backend: `fetch` y CORS; crear y listar desde la web.
 - [x] 2.4 Editar y borrar desde la web.
-- [ ] 2.5 Demostrar la limitación: al reiniciar el servidor, los datos desaparecen.
+- [x] 2.5 Demostrar la limitación: al reiniciar el servidor, los datos desaparecen.
 
 ### Fase 3 · Base de datos (MongoDB)
 Comprobar: Homebrew, MongoDB Community, MongoDB Compass.
@@ -126,6 +126,8 @@ Comprobar: Homebrew, MongoDB Community, MongoDB Compass.
 
 ## Cómo arrancar el proyecto
 _(Se completa durante las fases: abrir el frontend, arrancar el backend, arrancar MongoDB.)_
+
+**Orden desde la fase 2:** primero el backend y después el frontend (la web pide los productos al backend; si está apagado, muestra "No se puede conectar con el servidor").
 
 **Frontend (fase 1)**
 1. Abrir la carpeta del proyecto en VS Code.

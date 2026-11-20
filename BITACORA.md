@@ -6,11 +6,11 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 ---
 
 ## Estado actual
-- **Fase:** 2 · Backend (NestJS). En curso (trabajo autónomo de Claude).
-- **Siguiente paso:** 2.5 · Demostrar la limitación (reiniciar el servidor).
+- **Fase:** 2 · Backend (NestJS). **Completada** por Claude en trabajo autónomo; falta la comprobación visual del usuario. Fase 3 sin empezar.
+- **Siguiente paso:** que el usuario haga las comprobaciones de la fase 2 en el navegador, apruebe el **push** de los commits locales y diga cuándo empezar la fase 3 (MongoDB). ⛔ No empezar la fase 3 sin su permiso.
 - **Procesos corriendo:** servidor NestJS (`npm run start:dev` en `backend/`, arrancado por Claude en segundo plano), puerto 3000.
-- **Pendiente de decidir:** nada.
-- **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Último commit subido: `8cd33b2 Bitácora: GitHub conectado`. Para subir nuevos commits basta `git push` (el login quedó guardado en el llavero).
+- **Pendiente de decidir:** (1) push a GitHub de los commits locales; (2) si traducir al español los mensajes de error del backend (opcional).
+- **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Último commit subido: `8cd33b2 Bitácora: GitHub conectado`. **Commits locales sin subir:** `Paso 2.2`, `Paso 2.3`, `Paso 2.4`, `Fase 2` (push pendiente de aprobación).
 - **Copias de seguridad:** `~/Documents/proyectos/actividad_01-fase1` (copia de carpeta del fin de la fase 1; se conserva por decisión del usuario).
 
 ---
@@ -126,3 +126,6 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
   - Comprobado por Claude **simulando la página** con `jsdom` (navegador falso de Node, instalado solo en la carpeta temporal de Claude, no en el proyecto) contra el backend real: carga de los 3 ejemplos, crear, editar (título/botón/borde azul), guardar con stock 0 (sale en rojo), cancelar, error 400 mostrado en rojo, borrar, y aviso de "no se puede conectar" con el servidor caído. Todo correcto.
   - ⚠️ Falta la comprobación visual del usuario en el navegador real.
   - **2.4 completado.** Commit local `Paso 2.4: editar y borrar desde la web`.
+- **2.5 · Limitación** — demostrado por Claude con `curl`: se creó "Producto de la demo 2.5" → 4 productos; se reinició el servidor → solo quedan los 3 de ejemplo. El array vive en la memoria del servidor y se pierde al reiniciarlo. Solución: la base de datos (fase 3).
+- **Cierre de la fase 2** — `CLAUDE.md`: pasos marcados, *Cómo arrancar* (orden: backend primero) y *Glosario* actualizados. Commit local `Fase 2`. Servidor dejado **encendido** para que el usuario pruebe la web al volver.
+  - Resumen de lo aprendido: el backend es un programa aparte que guarda los datos y responde peticiones HTTP; frontend y backend hablan con JSON a través de `fetch`; CORS decide qué páginas pueden hablar con el backend; la validación se repite en el backend porque el frontend se puede saltar; los datos en memoria del servidor sobreviven a recargar la página, pero no a reiniciar el servidor.

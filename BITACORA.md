@@ -7,10 +7,10 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ## Estado actual
 - **Fase:** 2 · Backend (NestJS). **Completada** por Claude en trabajo autónomo; falta la comprobación visual del usuario. Fase 3 sin empezar.
-- **Siguiente paso:** que el usuario haga las comprobaciones de la fase 2 en el navegador, apruebe el **push** de los commits locales y diga cuándo empezar la fase 3 (MongoDB). ⛔ No empezar la fase 3 sin su permiso.
+- **Siguiente paso:** que el usuario haga las comprobaciones de la fase 2 en el navegador y diga cuándo empezar la fase 3 (MongoDB). ⛔ No empezar la fase 3 sin su permiso.
 - **Procesos corriendo:** servidor NestJS (`npm run start:dev` en `backend/`, arrancado por Claude en segundo plano), puerto 3000.
-- **Pendiente de decidir:** (1) push a GitHub de los commits locales; (2) si traducir al español los mensajes de error del backend (opcional).
-- **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Último commit subido: `8cd33b2 Bitácora: GitHub conectado`. **Commits locales sin subir:** `Paso 2.2`, `Paso 2.3`, `Paso 2.4`, `Fase 2` (push pendiente de aprobación).
+- **Pendiente de decidir:** nada.
+- **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Todo subido hasta `Mensajes de error en español` (push aprobado por el usuario).
 - **Copias de seguridad:** `~/Documents/proyectos/actividad_01-fase1` (copia de carpeta del fin de la fase 1; se conserva por decisión del usuario).
 
 ---
@@ -46,7 +46,8 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | 2026-11-20 | La página muestra mensajes: "Cargando…", "Todavía no hay productos", errores de validación del backend (400) y "No se puede conectar con el servidor". | Que el usuario vea qué pasa cuando el backend falla o rechaza datos (útil para aprender). |
 | 2026-11-20 | `*.tsbuildinfo` añadido a `.gitignore` y quitado del repositorio. | Es un archivo temporal de compilación; se coló en el commit del 2.1. |
 | 2026-11-20 | Editar reutiliza el **mismo formulario** (cambia a "Editar producto" / "Guardar cambios" + botón Cancelar; la tarjeta editada se marca en azul). Borrar pide confirmación (`confirm`). | Menos piezas nuevas que aprender; la confirmación evita borrados por error. |
-| 2026-11-20 | Los mensajes de validación del backend se muestran tal cual, **en inglés** (los de `class-validator`). | Traducirlos amplía el alcance; queda como propuesta para el usuario. |
+| 2026-11-20 | Los mensajes de validación del backend se muestran tal cual, **en inglés** (los de `class-validator`). | Traducirlos amplía el alcance; queda como propuesta para el usuario. → **Sustituida** (ver siguiente). |
+| 2026-11-20 | Mensajes de error del backend **en español**: cada regla del DTO lleva su `message`, y el de "campo no permitido" se traduce en `exceptionFactory` de la `ValidationPipe` (`main.ts`). | Pedido por el usuario. |
 | 2026-11-20 | Claude nunca hace push sin aprobación del usuario. Añadido a la regla 6 de `CLAUDE.md`. | Push publica en internet. |
 
 ---
@@ -129,3 +130,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 - **2.5 · Limitación** — demostrado por Claude con `curl`: se creó "Producto de la demo 2.5" → 4 productos; se reinició el servidor → solo quedan los 3 de ejemplo. El array vive en la memoria del servidor y se pierde al reiniciarlo. Solución: la base de datos (fase 3).
 - **Cierre de la fase 2** — `CLAUDE.md`: pasos marcados, *Cómo arrancar* (orden: backend primero) y *Glosario* actualizados. Commit local `Fase 2`. Servidor dejado **encendido** para que el usuario pruebe la web al volver.
   - Resumen de lo aprendido: el backend es un programa aparte que guarda los datos y responde peticiones HTTP; frontend y backend hablan con JSON a través de `fetch`; CORS decide qué páginas pueden hablar con el backend; la validación se repite en el backend porque el frontend se puede saltar; los datos en memoria del servidor sobreviven a recargar la página, pero no a reiniciar el servidor.
+- **Vuelta del usuario.** Aprobó el push → subidos `Paso 2.2`, `Paso 2.3`, `Paso 2.4` y `Fase 2` a GitHub.
+- **Mensajes en español** — `create-product.dto.ts` (mensaje en cada regla) y `main.ts` (`exceptionFactory`). Comprobado con `curl`: todos los errores 400 salen en español; el 404 ya lo estaba. Lint sin avisos.
+  - Nota: al guardar cambios del backend, el servidor (modo vigilancia) se reinicia solo y **se pierden los productos añadidos** (limitación de la fase 2).
+  - Commit `Mensajes de error en español` y push (aprobado por el usuario).

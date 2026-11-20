@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module.js';
 
@@ -15,11 +15,23 @@ async function bootstrap() {
   // Revisa los datos que llegan con las reglas de los DTO; si no las cumplen, responde 400 con los errores.
   // whitelist + forbidNonWhitelisted: rechaza campos que no existen en el DTO.
   // transform: convierte el JSON recibido en un objeto del DTO.
+  // exceptionFactory: arma la respuesta 400 con los mensajes en español (los de las reglas están en el DTO;
+  // el de "campo no permitido" lo genera la propia ValidationPipe en inglés, así que lo traducimos aquí).
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
+      exceptionFactory: (errors) => {
+        const messages = errors.flatMap((error) =>
+          Object.entries(error.constraints ?? {}).map(([rule, text]) =>
+            rule === 'whitelistValidation'
+              ? `El campo "${error.property}" no está permitido`
+              : text,
+          ),
+        );
+        return new BadRequestException(messages);
+      },
     }),
   );
 

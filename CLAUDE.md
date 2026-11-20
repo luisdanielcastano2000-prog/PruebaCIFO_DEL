@@ -56,6 +56,7 @@ actividad_01/                   ← raíz, con este CLAUDE.md
 ├── index.html                  ← entrada de GitHub Pages: redirige a frontend/
 ├── .nojekyll                   ← pide a GitHub Pages que publique los archivos tal cual
 ├── .gitignore                  ← lo que Git no guarda (node_modules/, dist/, .DS_Store, *.tsbuildinfo)
+├── RETOMAR.md                  ← prompt y lista para retomar tras una pausa
 ├── BITACORA.md                 ← registro de lo hecho y de las decisiones (se actualiza en cada paso)
 ├── README.md                   ← cómo arrancar el proyecto (final de la fase 3)
 ├── frontend/                   ← fase 1

@@ -5,12 +5,13 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ---
 
-## Estado actual
-- **Fase:** 4 · Revisión y deploy. En curso. (Fases 1–3 terminadas y verificadas por el usuario.)
-- **Siguiente paso:** 4.4 · Backend en Render (lo hace el usuario con la guía de Claude).
-- **Procesos corriendo:** MongoDB (`mongod`, puerto 27017) y servidor NestJS (puerto 3000), ambos arrancados por Claude en segundo plano.
+## Estado actual (actualizado 2026-11-20, al irnos de fin de semana)
+- **Fase:** 4 · Revisión y deploy. Hechos 4.1 (revisión), 4.2 (preparar producción) y 4.3 (Atlas). **En curso: 4.4 (backend en Render)**. Pendientes: 4.5 (GitHub Pages) y 4.6 (comprobación final).
+- **Dónde nos quedamos:** Render ya compila y arranca el backend, pero no conecta con Atlas: error `ERR_SSL_TLSV1_ALERT_INTERNAL_ERROR` = Atlas no deja entrar a Render. Falta comprobar/añadir `0.0.0.0/0` en Atlas → *Security → Network Access* (estado **Active**) y relanzar el deploy en Render (*Manual Deploy → Deploy latest commit*).
+- **Para retomar el lunes:** ver `RETOMAR.md` (prompt para pegar + lista de comprobación).
+- **Procesos corriendo:** ninguno cuando se cierre la sesión (MongoDB local y el backend local los arrancó Claude y se apagan con ella; los datos locales quedan en `~/mongodb-data`).
 - **Pendiente de decidir:** nada.
-- **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). **Todo subido**, incluida la fase 3 (push aprobado por el usuario).
+- **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Commit `Pausa de fin de semana: preparar para retomar` (push según lo que diga el usuario).
 - **Copias de seguridad:** `~/Documents/proyectos/actividad_01-fase1` (copia de carpeta del fin de la fase 1; se conserva por decisión del usuario).
 
 ---
@@ -207,3 +208,10 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 - Comprobado en internet (2026-11-20): Atlas M0 y Render free siguen siendo gratis y, según la mayoría de fuentes, sin tarjeta. Render free se duerme a los 15 min; Atlas M0 se pausa tras 30 días sin uso.
 - **4.3 · Atlas** — el usuario creó la cuenta, el clúster M0, el usuario `catalogo_app`, el acceso `0.0.0.0/0` y obtuvo la cadena de conexión (opción *Drivers*). Decidido **no guardar la contraseña** en el ordenador de clase (Notas sería visible para otros): se copiará directamente de Atlas a Render; si se pierde, se crea otra en *Database Access*. Atlas avisa de "contact information" incompleta: es opcional, se ignora.
 - Push de `Paso 4.1`, `Paso 4.2` y la bitácora, aprobado por el usuario (Render descarga el código desde GitHub).
+- **4.4 · Render (en curso)** — primer deploy fallido: `npm error Missing script: "buildyarn"`. Causa: la casilla *Build Command* traía `yarn` por defecto y se quedó pegado al comando (`npm run buildyarn`). El código está bien: Claude reprodujo en el Mac la instalación y compilación desde una copia limpia de GitHub y funcionan. Solución: borrar la casilla entera y escribir `npm ci && npm run build`; revisar igual *Start Command*.
+  - El usuario pidió las instrucciones completas de una vez (pegar errores uno a uno le confundía). Lección para Claude: dar la lista completa de pasos de una sola vez y pedir el bloque entero del log, no línea a línea.
+  - Segundo intento: *Build Command* con errata `ppm` → corregido a `npm ci && npm run build`.
+  - Tercer intento: **compila y arranca**, pero `MongoParseError: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"` → el **valor** de `MONGODB_URI` en Render no empieza por `mongodb+srv://` (espacio, comillas, texto de más…). El nombre de la variable sí es correcto (si no, el backend habría intentado el MongoDB local).
+  - El usuario pegó en el chat su cadena de Atlas **con la contraseña** (no se copia aquí). Problemas vistos: la contraseña sigue entre `<` `>` (hay que quitarlos) y fue inventada en Render sin ponerla en Atlas. El usuario de Atlas se llama `luisdanielcastano2000_db_user` (no `catalogo_app`; vale igual). Recomendado: poner en Atlas una contraseña **nueva**, solo letras y números (la anterior quedó expuesta en el chat), y usar esa misma en Render.
+  - Siguiente intento: la cadena ya se interpreta bien, pero `ERR_SSL_TLSV1_ALERT_INTERNAL_ERROR` (tlsv1 alert internal error) al conectar con Atlas. Es el síntoma típico de que **Atlas rechaza la IP** de Render: falta `0.0.0.0/0` en *Network Access* (o aún no estaba activo). Indicado al usuario cómo añadirlo.
+- **Pausa de fin de semana** (pedida por el usuario). Creado `RETOMAR.md` con el prompt para el lunes, el estado exacto de Render/Atlas y la lista de lo que queda. Seguridad pendiente de confirmar: que la contraseña nueva de Atlas (solo letras y números) esté puesta en Atlas y en Render, ya que la anterior apareció en el chat.

@@ -130,7 +130,7 @@ Comprobar: MongoDB Community y MongoDB Compass (sin Homebrew: el usuario del Mac
 Servicios: MongoDB Atlas (M0), Render (backend), GitHub Pages (frontend). Las cuentas las crea el usuario; Claude guía. Secretos (contraseña de Atlas) nunca en el chat ni en el repo.
 - [x] 4.1 Revisión completa (código + documentación) y correcciones.
 - [x] 4.2 Preparar para producción: variables de entorno en el backend (`MONGODB_URI`, `PORT`, `CORS_ORIGINS`) y URL de la API según dónde se abra el frontend.
-- [ ] 4.3 Base de datos en MongoDB Atlas.
+- [x] 4.3 Base de datos en MongoDB Atlas.
 - [ ] 4.4 Backend en Render.
 - [ ] 4.5 Frontend en GitHub Pages.
 - [ ] 4.6 Comprobación final + README con las direcciones públicas.

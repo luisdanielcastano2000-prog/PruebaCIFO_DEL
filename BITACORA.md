@@ -7,7 +7,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ## Estado actual
 - **Fase:** 4 · Revisión y deploy. En curso. (Fases 1–3 terminadas y verificadas por el usuario.)
-- **Siguiente paso:** 4.3 · Base de datos en MongoDB Atlas (necesita que el usuario cree la cuenta).
+- **Siguiente paso:** 4.4 · Backend en Render (lo hace el usuario con la guía de Claude).
 - **Procesos corriendo:** MongoDB (`mongod`, puerto 27017) y servidor NestJS (puerto 3000), ambos arrancados por Claude en segundo plano.
 - **Pendiente de decidir:** nada.
 - **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). **Todo subido**, incluida la fase 3 (push aprobado por el usuario).
@@ -204,3 +204,6 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
   - Raíz: `index.html` (redirige a `frontend/`) y `.nojekyll`.
   - Comprobado: `npm run build` + `node dist/main.js` en el puerto 3100 con variables de ejemplo → lee de `catalogo_tech`, CORS solo para los orígenes indicados (Live Server no, como debe ser). Simulación con `jsdom`: en `127.0.0.1` usa `localhost:3000` y pinta la lista; en `github.io` usa la dirección de Render y muestra el aviso. En local todo sigue igual.
   - **4.2 completado.** Commit local `Paso 4.2: preparar para producción`.
+- Comprobado en internet (2026-11-20): Atlas M0 y Render free siguen siendo gratis y, según la mayoría de fuentes, sin tarjeta. Render free se duerme a los 15 min; Atlas M0 se pausa tras 30 días sin uso.
+- **4.3 · Atlas** — el usuario creó la cuenta, el clúster M0, el usuario `catalogo_app`, el acceso `0.0.0.0/0` y obtuvo la cadena de conexión (opción *Drivers*). Decidido **no guardar la contraseña** en el ordenador de clase (Notas sería visible para otros): se copiará directamente de Atlas a Render; si se pierde, se crea otra en *Database Access*. Atlas avisa de "contact information" incompleta: es opcional, se ignora.
+- Push de `Paso 4.1`, `Paso 4.2` y la bitácora, aprobado por el usuario (Render descarga el código desde GitHub).

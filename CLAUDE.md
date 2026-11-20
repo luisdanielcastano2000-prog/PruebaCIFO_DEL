@@ -53,6 +53,8 @@ CORS activado en el backend solo para el origen de Live Server (`http://127.0.0.
 ```
 actividad_01/                   ← raíz, con este CLAUDE.md
 ├── CLAUDE.md
+├── index.html                  ← entrada de GitHub Pages: redirige a frontend/
+├── .nojekyll                   ← pide a GitHub Pages que publique los archivos tal cual
 ├── .gitignore                  ← lo que Git no guarda (node_modules/, dist/, .DS_Store, *.tsbuildinfo)
 ├── BITACORA.md                 ← registro de lo hecho y de las decisiones (se actualiza en cada paso)
 ├── README.md                   ← cómo arrancar el proyecto (final de la fase 3)
@@ -127,7 +129,7 @@ Comprobar: MongoDB Community y MongoDB Compass (sin Homebrew: el usuario del Mac
 ### Fase 4 · Revisión y deploy
 Servicios: MongoDB Atlas (M0), Render (backend), GitHub Pages (frontend). Las cuentas las crea el usuario; Claude guía. Secretos (contraseña de Atlas) nunca en el chat ni en el repo.
 - [x] 4.1 Revisión completa (código + documentación) y correcciones.
-- [ ] 4.2 Preparar para producción: variables de entorno en el backend (`MONGODB_URI`, `PORT`, `CORS_ORIGINS`) y URL de la API según dónde se abra el frontend.
+- [x] 4.2 Preparar para producción: variables de entorno en el backend (`MONGODB_URI`, `PORT`, `CORS_ORIGINS`) y URL de la API según dónde se abra el frontend.
 - [ ] 4.3 Base de datos en MongoDB Atlas.
 - [ ] 4.4 Backend en Render.
 - [ ] 4.5 Frontend en GitHub Pages.
@@ -206,5 +208,8 @@ _(Se va completando: término — definición en una línea.)_
 - **Schema** — la forma y las reglas de un documento dentro de MongoDB (qué campos tiene una caja y qué puede llevar).
 - **Modelo** — lo que Mongoose crea a partir del schema para buscar, guardar, editar y borrar en una colección.
 - **`async` / `await`** — forma de esperar a algo que tarda (como la respuesta de la base de datos) sin bloquear el servidor.
+- **Deploy** — publicar la aplicación en servidores de internet para que se pueda usar desde cualquier sitio.
+- **Producción** — la versión publicada que usa la gente (frente a "desarrollo", la del Mac).
+- **Variable de entorno** — ajuste que el servidor le da al programa al arrancarlo (p. ej., `MONGODB_URI`); sirve para no escribir contraseñas en el código.
 - **Filtro de excepciones** — pieza de NestJS que captura un tipo de error y decide qué respuesta enviar (aquí: errores de MongoDB → 400 en español).
 - **Delegación de eventos** — un solo "escuchador" en el contenedor (`#product-list`) atiende los clics de todos los botones de las tarjetas.

@@ -7,7 +7,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ## Estado actual
 - **Fase:** 4 · Revisión y deploy. En curso. (Fases 1–3 terminadas y verificadas por el usuario.)
-- **Siguiente paso:** 4.2 · Preparar para producción.
+- **Siguiente paso:** 4.3 · Base de datos en MongoDB Atlas (necesita que el usuario cree la cuenta).
 - **Procesos corriendo:** MongoDB (`mongod`, puerto 27017) y servidor NestJS (puerto 3000), ambos arrancados por Claude en segundo plano.
 - **Pendiente de decidir:** nada.
 - **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). **Todo subido**, incluida la fase 3 (push aprobado por el usuario).
@@ -63,6 +63,9 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | 2026-11-20 | Errores de validación de MongoDB → **400 en español** mediante un filtro global (`mongoose-validation.filter.ts`); el DTO recorta espacios antes de validar. | La revisión encontró 3 casos que daban 500 (ver registro). |
 | 2026-11-20 | El mensaje "Unexpected end of JSON input" (JSON mal formado) se deja en inglés. | Solo ocurre enviando peticiones a mano; la web siempre envía JSON correcto. |
 | 2026-11-20 | Las pruebas de Claude sobre la base compartida solo tocan productos creados por él y localizados por nombre. | El usuario usa la web a la vez (creó "Almohadilla para cascos" durante la revisión). |
+| 2026-11-20 | Variables de entorno del backend: `MONGODB_URI` (si falta → MongoDB local), `CORS_ORIGINS` (lista separada por comas; si falta → Live Server), `PORT` (si falta → 3000). `dbName: 'catalogo_tech'` fijo. | Mismo código en el Mac y en Render; secretos fuera del repositorio. |
+| 2026-11-20 | El frontend elige la API según dónde se abra: `127.0.0.1`/`localhost` → `http://localhost:3000`; cualquier otro sitio → la dirección de Render (`PRODUCTION_API_URL`, pendiente hasta el 4.4). | Un único `app.js` para el Mac y para GitHub Pages. |
+| 2026-11-20 | GitHub Pages publicará la **raíz del repositorio** (rama `main`), con `index.html` en la raíz que redirige a `frontend/` y `.nojekyll`. | Pages solo publica la raíz o `/docs`; la alternativa (GitHub Actions) exigiría ampliar los permisos del token del usuario. El repositorio ya es público, así que no se expone nada nuevo. |
 | 2026-11-20 | Claude nunca hace push sin aprobación del usuario. Añadido a la regla 6 de `CLAUDE.md`. | Push publica en internet. |
 
 ---
@@ -195,3 +198,9 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
   - Revisado sin problemas: seguridad del frontend (`textContent`, sin inyección de HTML), campos extra o con `$` rechazados, JSON roto → 400, cuerpo que no es un objeto → 400, ids raros → 404, CORS, documentación coherente con el código.
   - Durante la revisión apareció "Almohadilla para cascos", creado por el usuario desde la web: comprobado que no se tocó.
   - Lint sin avisos. **4.1 completado.** Commit local `Paso 4.1: revisión y correcciones`.
+- **4.2 · Preparar para producción**
+  - Backend: `app.module.ts` lee `MONGODB_URI` (con `dbName: 'catalogo_tech'`); `main.ts` lee `CORS_ORIGINS` y `PORT`; `package.json` declara `"engines": {"node": ">=22"}` para Render.
+  - Frontend: `app.js` con `IS_LOCAL` / `PRODUCTION_API_URL`; mensajes adaptados (aviso de "servidor dormido" en internet).
+  - Raíz: `index.html` (redirige a `frontend/`) y `.nojekyll`.
+  - Comprobado: `npm run build` + `node dist/main.js` en el puerto 3100 con variables de ejemplo → lee de `catalogo_tech`, CORS solo para los orígenes indicados (Live Server no, como debe ser). Simulación con `jsdom`: en `127.0.0.1` usa `localhost:3000` y pinta la lista; en `github.io` usa la dirección de Render y muestra el aviso. En local todo sigue igual.
+  - **4.2 completado.** Commit local `Paso 4.2: preparar para producción`.

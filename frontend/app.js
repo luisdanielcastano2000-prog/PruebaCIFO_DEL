@@ -2,8 +2,12 @@
 // La página pide los productos al backend con fetch (peticiones HTTP con JSON) y solo se encarga de pintarlos.
 // Operaciones: listar (GET), crear (POST), editar (PATCH) y borrar (DELETE).
 
-// Dirección de la API de productos (el backend NestJS)
-const API_URL = 'http://localhost:3000/products';
+// Dirección de la API de productos (el backend NestJS):
+// - si la página se abre en el Mac (Live Server), el backend también está en el Mac;
+// - si se abre desde internet (GitHub Pages), el backend está en Render.
+const IS_LOCAL = ['127.0.0.1', 'localhost'].includes(window.location.hostname);
+const PRODUCTION_API_URL = 'https://PENDIENTE.onrender.com'; // se rellena en el paso 4.5, cuando Render nos dé la dirección
+const API_URL = (IS_LOCAL ? 'http://localhost:3000' : PRODUCTION_API_URL) + '/products';
 
 // Copia local de lo último que nos ha enviado el backend (solo para pintar; la verdad está en el servidor)
 let products = [];
@@ -48,8 +52,9 @@ async function getErrorText(response) {
   }
 }
 
-const CONNECTION_ERROR =
-  'No se puede conectar con el servidor. ¿Está arrancado el backend en http://localhost:3000?';
+const CONNECTION_ERROR = IS_LOCAL
+  ? 'No se puede conectar con el servidor. ¿Está arrancado el backend en http://localhost:3000?'
+  : 'No se puede conectar con el servidor. Inténtalo de nuevo en un minuto.';
 
 // Crea la tarjeta HTML de un producto
 function createProductCard(product) {
@@ -119,7 +124,13 @@ function renderProducts() {
 
 // LEER: GET /products → el backend devuelve la lista en JSON (ya ordenada, más recientes primero)
 async function loadProducts() {
-  showMessage(listMessage, 'Cargando productos…');
+  // En internet, el servidor gratuito de Render "se duerme" sin visitas y tarda en despertar
+  showMessage(
+    listMessage,
+    IS_LOCAL
+      ? 'Cargando productos…'
+      : 'Cargando productos… (si el servidor estaba dormido, puede tardar hasta un minuto)',
+  );
   try {
     const response = await fetch(API_URL);
     if (!response.ok) {

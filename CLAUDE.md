@@ -121,7 +121,7 @@ Comprobar: MongoDB Community y MongoDB Compass (sin Homebrew: el usuario del Mac
 - [x] 3.1 Arrancar MongoDB y conectarse con Compass.
 - [x] 3.2 Conectar NestJS con Mongoose; comprobar en el log que conecta. (La base no aparece en Compass hasta guardar el primer dato: explicar por qué.)
 - [x] 3.3 Sustituir el array del service por el schema de MongoDB. Comprobar que el frontend funciona sin cambios.
-- [ ] 3.4 Comprobar que los datos siguen ahí tras reiniciar el servidor y verlos en Compass.
+- [x] 3.4 Comprobar que los datos siguen ahí tras reiniciar el servidor y verlos en Compass.
 - [ ] 3.5 Repaso: esquema del recorrido completo de un dato + README con los pasos para arrancar el proyecto.
 
 ## Cómo arrancar el proyecto

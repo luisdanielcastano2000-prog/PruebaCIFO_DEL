@@ -7,7 +7,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ## Estado actual
 - **Fase:** 3 · Base de datos (MongoDB). En curso (trabajo autónomo de Claude).
-- **Siguiente paso:** 3.4 · Comprobar que los datos sobreviven al reinicio.
+- **Siguiente paso:** 3.5 · Repaso: recorrido de un dato + README.
 - **Procesos corriendo:** MongoDB (`mongod`, puerto 27017) y servidor NestJS (puerto 3000), ambos arrancados por Claude en segundo plano.
 - **Pendiente de decidir:** nada.
 - **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Todo subido hasta `Mensajes de error en español` (push aprobado por el usuario).
@@ -56,6 +56,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | 2026-11-20 | Schema con `timestamps: true` y `versionKey: false`; reglas también en el schema (`required`, `min`, `enum`, `maxlength`); al editar, `runValidators: true`. | Respuestas idénticas a la fase 2 (sin el campo interno `__v`) y una última red de seguridad en la propia base de datos. |
 | 2026-11-20 | Un id con formato no válido para MongoDB responde **404** (no 500). | Mismo comportamiento que en la fase 2. |
 | 2026-11-20 | La base empieza **vacía**: no se cargan los 3 productos de ejemplo. | Así el usuario ve la lección de la fase 3: `catalogo_tech` aparece en Compass solo al guardar el primer producto. |
+| 2026-11-20 | Tras las pruebas, Claude **borró la base `catalogo_tech`** (solo contenía su producto de prueba; lo comprobó antes de borrar). | Que el usuario vea por sí mismo cómo aparece la base en Compass al guardar su primer producto. |
 | 2026-11-20 | Claude nunca hace push sin aprobación del usuario. Añadido a la regla 6 de `CLAUDE.md`. | Push publica en internet. |
 
 ---
@@ -163,3 +164,11 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
   - Comprobado con `curl`: GET (lista vacía), POST → 201, GET uno, PATCH (cambia `updatedAt`), 400 en español, 404 con id raro e inexistente, DELETE → 200. Mismo formato que en la fase 2.
   - Comprobado simulando la web con `jsdom`: todo funciona **sin tocar el frontend** (lista vacía → "Todavía no hay productos").
   - **3.3 completado.** Commit local `Paso 3.3: productos guardados en MongoDB`.
+- **3.4 · Los datos sobreviven**
+  - Creado "Producto de la demo 3.4" → reiniciado **NestJS** → sigue ahí.
+  - Apagado **MongoDB** ("mongod shutdown complete"; los datos son archivos `.wt` en `~/mongodb-data`) → encendido de nuevo → el producto sigue ahí y el backend se reconectó solo.
+  - Con MongoDB apagado, el backend **no responde error: se queda esperando** y contesta cuando MongoDB vuelve (en la web se vería "Cargando productos…" un rato). Anotado; no se cambia.
+  - Comprobado que Mongoose **no crea** la base al arrancar el backend: `catalogo_tech` solo aparece al guardar el primer producto.
+  - Base `catalogo_tech` borrada al terminar (solo tenía el producto de prueba de Claude).
+  - ⚠️ Falta que el usuario lo vea en Compass (lista de comprobaciones).
+  - **3.4 completado** por parte de Claude. Commit local `Paso 3.4: los datos sobreviven a los reinicios`.

@@ -10,7 +10,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 - **Siguiente paso:** 2.2 · API de productos (CRUD en memoria). ⛔ **No empezar hasta que el usuario lo diga.**
 - **Procesos corriendo:** ninguno. El servidor NestJS se apagó a petición del usuario mientras esperamos (para encenderlo: ver *Cómo arrancar* en `CLAUDE.md`).
 - **Pendiente de decidir:** nada.
-- **Control de versiones:** Git, rama `main`. Commits: `Fase 1` y `Paso 2.1: proyecto NestJS mínimo`. Remoto `origin` = GitHub (público), conectado. **Primer push pendiente**: `git push -u origin main` en la terminal del usuario, con el token ya creado.
+- **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Último commit subido: `8455bcd Nuevos cambios en clase con TOKEN`. Para subir nuevos commits basta `git push` (el login quedó guardado en el llavero).
 - **Copias de seguridad:** `~/Documents/proyectos/actividad_01-fase1` (copia de carpeta del fin de la fase 1; se conserva por decisión del usuario).
 
 ---
@@ -88,3 +88,6 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
   - `git remote add origin …` hecho. Pendiente: crear token y primer push (usuario).
   - El usuario creó un token y lo pegó en el chat. Claude **no lo usó** y recomendó revocarlo (queda guardado en el historial de la conversación) y crear uno nuevo para el push.
   - Commit `Conexión con GitHub` (cambios de `CLAUDE.md` y `BITACORA.md`), aprobado por el usuario.
+  - **Primer push hecho por el usuario** (`git push -u origin main`) con su token: GitHub recibió `Fase 1`, `Paso 2.1…` y `Conexión con GitHub`.
+  - El usuario hizo un commit desde el panel de Git de VS Code sin mensaje: VS Code abrió la pestaña `COMMIT_EDITMSG` y Git quedó esperando (parecía que "tardaba"). Se resolvió escribiendo el mensaje y cerrando la pestaña: commit `8455bcd Nuevos cambios en clase con TOKEN`, subido a GitHub. Comprobado: el token no está en ningún commit.
+  - **Incidente:** tras ese commit, `BITACORA.md` en disco volvió a una versión antigua (probablemente se guardó una pestaña vieja abierta en VS Code). Restaurado con `git restore BITACORA.md`, con permiso del usuario. Lección: cerrar y reabrir las pestañas de archivos que Claude modifica, o no guardarlas si tienen cambios viejos.

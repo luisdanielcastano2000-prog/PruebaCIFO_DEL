@@ -7,10 +7,10 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ## Estado actual
 - **Fase:** 3 · Base de datos (MongoDB). **Completada** por Claude en trabajo autónomo. **Proyecto terminado** (las 3 fases); faltan las comprobaciones del usuario.
-- **Siguiente paso:** que el usuario haga las comprobaciones de la fase 3 (Compass + web) y apruebe el **push** de los commits locales.
+- **Siguiente paso:** que el usuario haga las comprobaciones de la fase 3 (Compass + web); dijo que las hará más tarde.
 - **Procesos corriendo:** MongoDB (`mongod`, puerto 27017) y servidor NestJS (puerto 3000), ambos arrancados por Claude en segundo plano.
-- **Pendiente de decidir:** push a GitHub de los commits de la fase 3.
-- **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Subido hasta `Mensajes de error en español`. **Commits locales sin subir:** `Paso 3.1` … `Paso 3.4` y `Fase 3` (push pendiente de aprobación).
+- **Pendiente de decidir:** nada.
+- **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). **Todo subido**, incluida la fase 3 (push aprobado por el usuario).
 - **Copias de seguridad:** `~/Documents/proyectos/actividad_01-fase1` (copia de carpeta del fin de la fase 1; se conserva por decisión del usuario).
 
 ---
@@ -175,3 +175,4 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 - **3.5 · Repaso** — creado `README.md` en la raíz: piezas, requisitos, cómo arrancar (orden: MongoDB → backend → frontend, 2 terminales), Compass, **recorrido completo de un dato** (esquema), API, estructura y tabla "Si algo falla". `CLAUDE.md` → *Cómo arrancar* remite al README.
 - **Cierre de la fase 3** — pasos marcados en `CLAUDE.md`; *Glosario* y *Cómo arrancar* al día. Commit local `Fase 3`. MongoDB y backend dejados **encendidos** para que el usuario pruebe.
   - Resumen de lo aprendido: la base de datos es una pieza más con su propio programa (`mongod`) y su puerto; el backend se conecta a ella con Mongoose y una URI; el schema define cómo se guardan los productos; al cambiar el array por MongoDB **solo cambió el backend**, el frontend quedó igual; ahora los datos sobreviven a recargar la página, a reiniciar el backend y a reiniciar la base de datos.
+- Push de la fase 3 aprobado por el usuario ("hazlo tú"): subidos `Paso 3.1` … `Paso 3.4`, `Fase 3` y este último commit de la bitácora. El usuario hará las comprobaciones más tarde.

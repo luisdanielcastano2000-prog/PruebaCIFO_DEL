@@ -1,6 +1,7 @@
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module.js';
+import { MongooseValidationFilter } from './mongoose-validation.filter.js';
 
 // Arranque del backend: crea la aplicación y la pone a escuchar en el puerto 3000
 async function bootstrap() {
@@ -33,6 +34,11 @@ async function bootstrap() {
         return new BadRequestException(messages);
       },
     }),
+  );
+
+  // Errores de validación de MongoDB → 400 en español (ver mongoose-validation.filter.ts)
+  app.useGlobalFilters(
+    new MongooseValidationFilter(app.get(HttpAdapterHost).httpAdapter),
   );
 
   await app.listen(process.env.PORT ?? 3000);

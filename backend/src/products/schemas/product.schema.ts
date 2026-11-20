@@ -35,7 +35,7 @@ export class Product {
   @Prop({ type: Number, required: true, min: 0 })
   stock: number;
 
-  @Prop({ type: String, maxlength: 300 })
+  @Prop({ type: String, trim: true, maxlength: 300 })
   description?: string;
 }
 

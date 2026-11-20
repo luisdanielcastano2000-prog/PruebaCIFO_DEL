@@ -7,7 +7,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ## Estado actual
 - **Fase:** 4 · Revisión y deploy. En curso. (Fases 1–3 terminadas y verificadas por el usuario.)
-- **Siguiente paso:** 4.1 · Revisión completa (Claude, todo seguido; correcciones presentadas juntas).
+- **Siguiente paso:** 4.2 · Preparar para producción.
 - **Procesos corriendo:** MongoDB (`mongod`, puerto 27017) y servidor NestJS (puerto 3000), ambos arrancados por Claude en segundo plano.
 - **Pendiente de decidir:** nada.
 - **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). **Todo subido**, incluida la fase 3 (push aprobado por el usuario).
@@ -60,6 +60,9 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | 2026-11-20 | **Fase 4 (nueva): revisión completa + deploy.** Servicios: **MongoDB Atlas** (M0 gratis) para la base, **Render** (gratis) para el backend, **GitHub Pages** para el frontend. Deploy sale de "fuera de alcance". | Pedido por el usuario; servicios aprobados por él. Avisado: las cuentas las crea él, la app pública no tiene login (cualquiera puede editar/borrar), Render gratis "se duerme". |
 | 2026-11-20 | Configuración de producción con **variables de entorno leídas con `process.env`** (sin instalar `@nestjs/config`). La contraseña de Atlas **nunca** en el chat ni en el repositorio: solo en los ajustes de Render. | Repositorio público; `@nestjs/config` sigue fuera de alcance porque no hace falta. |
 | 2026-11-20 | Revisión 4.1: Claude la hace entera y presenta las correcciones juntas. | Elegido por el usuario. |
+| 2026-11-20 | Errores de validación de MongoDB → **400 en español** mediante un filtro global (`mongoose-validation.filter.ts`); el DTO recorta espacios antes de validar. | La revisión encontró 3 casos que daban 500 (ver registro). |
+| 2026-11-20 | El mensaje "Unexpected end of JSON input" (JSON mal formado) se deja en inglés. | Solo ocurre enviando peticiones a mano; la web siempre envía JSON correcto. |
+| 2026-11-20 | Las pruebas de Claude sobre la base compartida solo tocan productos creados por él y localizados por nombre. | El usuario usa la web a la vez (creó "Almohadilla para cascos" durante la revisión). |
 | 2026-11-20 | Claude nunca hace push sin aprobación del usuario. Añadido a la regla 6 de `CLAUDE.md`. | Push publica en internet. |
 
 ---
@@ -184,3 +187,11 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ### 2026-11-20 (fase 4)
 - Plan de la fase 4 presentado y aprobado (Atlas + Render + GitHub Pages). Commit y push de la verificación de la fase 3 aprobados.
+- **4.1 · Revisión completa** (todo seguido, a petición del usuario)
+  - **Errores encontrados (respondían 500 en vez de 400):** (1) nombre con espacios alrededor, p. ej. `" a "`: el DTO contaba 3 caracteres, MongoDB lo recortaba a 1 y lo rechazaba; (2) `PATCH` con `"name": null`; (3) `PATCH` con `"price": null` (el DTO de edición acepta `null` en campos opcionales y el schema lo rechazaba).
+  - **Corregido:** el DTO recorta espacios antes de validar (`@Transform` de class-transformer); nuevo `src/mongoose-validation.filter.ts` registrado en `main.ts` → 400 con "El campo "x" es obligatorio" / "El valor del campo "x" no es válido"; la descripción también se recorta en el schema. Verificado con `curl`: los 3 casos dan 400 en español; lo normal sigue funcionando.
+  - **Mejoras del frontend:** el botón se desactiva y dice "Guardando…" mientras se guarda (evita duplicados con doble clic; importante con Render, que tarda al despertar); si borrar falla (p. ej., 404 porque ya estaba borrado), se recarga la lista. Verificado con `jsdom`: 3 clics seguidos → 1 solo producto.
+  - **Otros:** `@nestjs/mapped-types` fijado a `^12.0.1` (estaba como `*`, cualquier versión); `backend/README.md` (plantilla de NestJS en inglés) sustituido por uno corto en español; `CLAUDE.md`: nombre real de la carpeta raíz en *Estructura*, término nuevo en el *Glosario*.
+  - Revisado sin problemas: seguridad del frontend (`textContent`, sin inyección de HTML), campos extra o con `$` rechazados, JSON roto → 400, cuerpo que no es un objeto → 400, ids raros → 404, CORS, documentación coherente con el código.
+  - Durante la revisión apareció "Almohadilla para cascos", creado por el usuario desde la web: comprobado que no se tocó.
+  - Lint sin avisos. **4.1 completado.** Commit local `Paso 4.1: revisión y correcciones`.

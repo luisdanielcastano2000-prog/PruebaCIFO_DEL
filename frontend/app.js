@@ -177,7 +177,10 @@ async function deleteProduct(product) {
   try {
     const response = await fetch(`${API_URL}/${product._id}`, { method: 'DELETE' });
     if (!response.ok) {
-      showMessage(listMessage, await getErrorText(response), true);
+      // p. ej., 404 si otra persona ya lo había borrado: recargamos la lista para ver lo que hay de verdad
+      const errorText = await getErrorText(response);
+      await loadProducts();
+      showMessage(listMessage, errorText, true);
       return;
     }
     if (product._id === editingId) {
@@ -222,6 +225,11 @@ form.addEventListener('submit', async function (event) {
   event.preventDefault(); // evita que el navegador recargue la página, que es lo que haría por defecto
   showMessage(formMessage, '');
 
+  // Desactiva el botón mientras se guarda: evita crear el mismo producto dos veces con un doble clic
+  const buttonText = submitButton.textContent;
+  submitButton.disabled = true;
+  submitButton.textContent = 'Guardando…';
+
   try {
     // Si estamos editando → PATCH; si no → POST
     const response = editingId
@@ -239,6 +247,12 @@ form.addEventListener('submit', async function (event) {
     await loadProducts(); // volvemos a pedir la lista: así vemos exactamente lo que hay en el servidor
   } catch {
     showMessage(formMessage, CONNECTION_ERROR, true);
+  } finally {
+    // finally se ejecuta siempre, haya ido bien o mal: vuelve a activar el botón
+    submitButton.disabled = false;
+    if (submitButton.textContent === 'Guardando…') {
+      submitButton.textContent = buttonText;
+    }
   }
 });
 

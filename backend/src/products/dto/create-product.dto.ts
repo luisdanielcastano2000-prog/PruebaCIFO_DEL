@@ -8,6 +8,7 @@ import {
   MaxLength,
   Min,
 } from 'class-validator';
+import { Transform } from 'class-transformer';
 import { PRODUCT_CATEGORIES } from '../schemas/product.schema.js';
 import type { ProductCategory } from '../schemas/product.schema.js';
 
@@ -15,7 +16,16 @@ import type { ProductCategory } from '../schemas/product.schema.js';
 // Son las mismas reglas que el formulario, repetidas aquí porque el frontend se puede saltar
 // (cualquiera puede enviar una petición directamente al backend, sin pasar por el formulario).
 // Cada regla lleva su mensaje en español: es lo que verá el usuario si los datos no la cumplen.
+
+// Quita los espacios del principio y del final ANTES de comprobar las reglas
+// (así " a " cuenta como 1 carácter, igual que lo contará MongoDB al guardarlo).
+const trim = () =>
+  Transform(({ value }: { value: unknown }) =>
+    typeof value === 'string' ? value.trim() : value,
+  );
+
 export class CreateProductDto {
+  @trim()
   @IsString({ message: 'El nombre debe ser texto' })
   @Length(2, 80, { message: 'El nombre debe tener entre 2 y 80 caracteres' })
   name: string;
@@ -36,6 +46,7 @@ export class CreateProductDto {
   @Min(0, { message: 'El stock no puede ser negativo' })
   stock: number;
 
+  @trim()
   @IsOptional()
   @IsString({ message: 'La descripción debe ser texto' })
   @MaxLength(300, {

@@ -219,3 +219,9 @@ h2 {
 .product-card.editing {
   border: 2px solid #2563eb;
 }
+
+/* Botón desactivado mientras se guarda */
+#product-form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}

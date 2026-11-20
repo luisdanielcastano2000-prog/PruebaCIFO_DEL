@@ -6,9 +6,9 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 ---
 
 ## Estado actual
-- **Fase:** 2 · Backend (NestJS). **Completada** por Claude en trabajo autónomo; falta la comprobación visual del usuario. Fase 3 sin empezar.
-- **Siguiente paso:** que el usuario haga las comprobaciones de la fase 2 en el navegador y diga cuándo empezar la fase 3 (MongoDB). ⛔ No empezar la fase 3 sin su permiso.
-- **Procesos corriendo:** servidor NestJS (`npm run start:dev` en `backend/`, arrancado por Claude en segundo plano), puerto 3000.
+- **Fase:** 3 · Base de datos (MongoDB). En curso (trabajo autónomo de Claude).
+- **Siguiente paso:** 3.2 · Conectar NestJS con Mongoose.
+- **Procesos corriendo:** MongoDB (`mongod`, puerto 27017) y servidor NestJS (puerto 3000), ambos arrancados por Claude en segundo plano.
 - **Pendiente de decidir:** nada.
 - **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Todo subido hasta `Mensajes de error en español` (push aprobado por el usuario).
 - **Copias de seguridad:** `~/Documents/proyectos/actividad_01-fase1` (copia de carpeta del fin de la fase 1; se conserva por decisión del usuario).
@@ -48,6 +48,10 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | 2026-11-20 | Editar reutiliza el **mismo formulario** (cambia a "Editar producto" / "Guardar cambios" + botón Cancelar; la tarjeta editada se marca en azul). Borrar pide confirmación (`confirm`). | Menos piezas nuevas que aprender; la confirmación evita borrados por error. |
 | 2026-11-20 | Los mensajes de validación del backend se muestran tal cual, **en inglés** (los de `class-validator`). | Traducirlos amplía el alcance; queda como propuesta para el usuario. → **Sustituida** (ver siguiente). |
 | 2026-11-20 | Mensajes de error del backend **en español**: cada regla del DTO lleva su `message`, y el de "campo no permitido" se traduce en `exceptionFactory` de la `ValidationPipe` (`main.ts`). | Pedido por el usuario. |
+| 2026-11-20 | MongoDB y Compass se instalan **sin Homebrew**, a mano en la carpeta del usuario: `~/mongodb/` (programa), `~/mongodb-data/` (datos), `~/Applications/MongoDB Compass.app`. | El usuario del Mac **no es administrador** y Homebrew lo exige. Aprobado por el usuario. |
+| 2026-11-20 | **Fase 3 completa en trabajo autónomo** (instalaciones incluidas), con commits locales por paso. | Pedido explícito del usuario ("instálalo todo tú y haz la fase 3 completa"). |
+| 2026-11-20 | MongoDB 9.0.8 (la versión estable más reciente en la web oficial). | Regla 4 de `CLAUDE.md`: versiones estables actuales. |
+| 2026-11-20 | `mongod` escucha solo en el propio Mac, en IPv4 y en IPv6 (`--bind_ip localhost --ipv6`). | En el Mac "localhost" puede ser `127.0.0.1` o `::1`; así Compass y NestJS conectan con `localhost` sin fallos. Nadie de fuera del Mac puede conectarse. |
 | 2026-11-20 | Claude nunca hace push sin aprobación del usuario. Añadido a la regla 6 de `CLAUDE.md`. | Push publica en internet. |
 
 ---
@@ -65,7 +69,9 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | `class-validator` / `class-transformer` (en `backend/`) | Instalados con `npm install` (paso 2.2) | 0.15.1 / 0.5.1 |
 | `@nestjs/mapped-types` (en `backend/`) | Instalado por el Nest CLI al generar el recurso | — |
 | npm / npx | Instalados | 11.20.0 |
-| MongoDB, Compass | Sin comprobar (fase 3) | — |
+| Permisos del usuario del Mac | **No es administrador** (no puede usar `sudo` ni instalar Homebrew) | — |
+| MongoDB Community (`~/mongodb`) | Instalado a mano desde `fastdl.mongodb.org` (huella sha256 comprobada). Datos en `~/mongodb-data` | 9.0.8 |
+| MongoDB Compass (`~/Applications`) | Instalado a mano desde las descargas oficiales en GitHub (sha256 y firma de Apple comprobadas) | 1.53.3 |
 
 ---
 
@@ -134,3 +140,10 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 - **Mensajes en español** — `create-product.dto.ts` (mensaje en cada regla) y `main.ts` (`exceptionFactory`). Comprobado con `curl`: todos los errores 400 salen en español; el 404 ya lo estaba. Lint sin avisos.
   - Nota: al guardar cambios del backend, el servidor (modo vigilancia) se reinicia solo y **se pierden los productos añadidos** (limitación de la fase 2).
   - Commit `Mensajes de error en español` y push (aprobado por el usuario).
+- **3.1 · MongoDB y Compass**
+  - Comprobado: usuario sin permisos de administrador, sin Homebrew; MongoDB y Compass no instalados; puerto 27017 libre.
+  - MongoDB 9.0.8 (`mongodb-macos-arm64-9.0.8.tgz`, 171 MB): descargado, sha256 correcto, descomprimido en `~/mongodb/`; creada `~/mongodb-data/`.
+  - Arrancado con `--bind_ip 127.0.0.1`; luego reiniciado con `--bind_ip localhost --ipv6` para escuchar también en `::1`. Log: "Waiting for connections" en 27017.
+  - Compass 1.53.3 (zip para chip Apple): sha256 correcto, copiado a `~/Applications/MongoDB Compass.app`, firma de MongoDB, Inc. aceptada por macOS.
+  - ⚠️ Falta que el usuario abra Compass y se conecte (está en su lista de comprobaciones).
+  - **3.1 completado** por parte de Claude. Commit local `Paso 3.1: MongoDB y Compass`.

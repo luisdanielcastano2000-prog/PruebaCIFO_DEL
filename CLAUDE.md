@@ -22,7 +22,7 @@ Al empezar las fases 2 y 3, demuestra primero la limitación de la fase anterior
 |---|---|---|
 | Frontend | HTML + CSS + JavaScript, sin frameworks ni herramientas de build | VS Code + extensión Live Server → `http://127.0.0.1:5500` |
 | Backend (API REST) | NestJS (TypeScript); Mongoose desde la fase 3 | `http://localhost:3000` |
-| Base de datos | MongoDB Community (instalado con Homebrew) + MongoDB Compass para ver los datos | `mongodb://localhost:27017`, base `catalogo_tech` |
+| Base de datos | MongoDB Community 9.0 (instalado a mano en `~/mongodb`, datos en `~/mongodb-data`; sin Homebrew porque el usuario no es administrador) + MongoDB Compass (`~/Applications`) para ver los datos | `mongodb://localhost:27017`, base `catalogo_tech` |
 
 Flujo final: formulario → `fetch` (JSON) → API NestJS → Mongoose → MongoDB, y vuelta.
 CORS activado en el backend solo para el origen de Live Server (`http://127.0.0.1:5500` y `http://localhost:5500`).
@@ -117,8 +117,8 @@ Comprobar: Node.js LTS.
 - [x] 2.5 Demostrar la limitación: al reiniciar el servidor, los datos desaparecen.
 
 ### Fase 3 · Base de datos (MongoDB)
-Comprobar: Homebrew, MongoDB Community, MongoDB Compass.
-- [ ] 3.1 Arrancar MongoDB y conectarse con Compass.
+Comprobar: MongoDB Community y MongoDB Compass (sin Homebrew: el usuario del Mac no es administrador; instalación manual en la carpeta del usuario).
+- [x] 3.1 Arrancar MongoDB y conectarse con Compass.
 - [ ] 3.2 Conectar NestJS con Mongoose; comprobar en el log que conecta. (La base no aparece en Compass hasta guardar el primer dato: explicar por qué.)
 - [ ] 3.3 Sustituir el array del service por el schema de MongoDB. Comprobar que el frontend funciona sin cambios.
 - [ ] 3.4 Comprobar que los datos siguen ahí tras reiniciar el servidor y verlos en Compass.
@@ -127,7 +127,13 @@ Comprobar: Homebrew, MongoDB Community, MongoDB Compass.
 ## Cómo arrancar el proyecto
 _(Se completa durante las fases: abrir el frontend, arrancar el backend, arrancar MongoDB.)_
 
-**Orden desde la fase 2:** primero el backend y después el frontend (la web pide los productos al backend; si está apagado, muestra "No se puede conectar con el servidor").
+**Orden:** primero MongoDB (desde la fase 3), luego el backend y después el frontend (la web pide los productos al backend; si está apagado, muestra "No se puede conectar con el servidor").
+
+**Base de datos (fase 3)** — se arranca la primera
+1. En una terminal (en cualquier carpeta): `~/mongodb/bin/mongod --dbpath ~/mongodb-data --bind_ip localhost --ipv6`
+2. Está listo cuando el log dice `Waiting for connections` (puerto 27017). Se queda corriendo en esa pestaña.
+3. Para apagarlo: `Ctrl + C` en esa terminal. Los datos quedan guardados en `~/mongodb-data`.
+4. Para ver los datos: abrir **MongoDB Compass** (en `~/Applications`) → conectar a `mongodb://localhost:27017` → base `catalogo_tech` → colección `products`.
 
 **Frontend (fase 1)**
 1. Abrir la carpeta del proyecto en VS Code.
@@ -181,4 +187,9 @@ _(Se va completando: término — definición en una línea.)_
 - **`fetch`** — función de JavaScript del navegador para hacer peticiones HTTP al backend desde la página.
 - **Origen** — protocolo + dirección + puerto de una página (`http://127.0.0.1:5500`); otro puerto = otro origen.
 - **CORS** — permiso que da el backend para que páginas de otro origen le pidan datos; sin él, el navegador bloquea la respuesta.
+- **Base de datos** — programa que guarda los datos en disco de forma ordenada para que sobrevivan a los reinicios (el almacén con estanterías fijas).
+- **MongoDB** — base de datos que guarda la información como documentos parecidos a JSON. Su programa servidor se llama `mongod` y escucha en el puerto 27017.
+- **Colección** — grupo de documentos del mismo tipo dentro de una base (p. ej., `products`); equivale a una estantería.
+- **Documento** — un registro guardado en MongoDB (un producto); equivale a una caja en la estantería.
+- **MongoDB Compass** — aplicación con ventanas para ver y editar lo que hay en MongoDB.
 - **Delegación de eventos** — un solo "escuchador" en el contenedor (`#product-list`) atiende los clics de todos los botones de las tarjetas.

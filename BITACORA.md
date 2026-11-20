@@ -10,7 +10,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 - **Siguiente paso:** 2.2 · API de productos (CRUD en memoria). ⛔ **No empezar hasta que el usuario lo diga.**
 - **Procesos corriendo:** ninguno. El servidor NestJS se apagó a petición del usuario mientras esperamos (para encenderlo: ver *Cómo arrancar* en `CLAUDE.md`).
 - **Pendiente de decidir:** nada.
-- **Control de versiones:** Git, rama `main`. Commits: `Fase 1` y `Paso 2.1: proyecto NestJS mínimo`. Remoto `origin` = GitHub (público), conectado. **Primer push pendiente**: el usuario debe revocar el token expuesto en el chat, crear uno nuevo y ejecutar `git push -u origin main` en su terminal.
+- **Control de versiones:** Git, rama `main`. Commits: `Fase 1` y `Paso 2.1: proyecto NestJS mínimo`. Remoto `origin` = GitHub (público), conectado. **Primer push pendiente**: `git push -u origin main` en la terminal del usuario, con el token ya creado.
 - **Copias de seguridad:** `~/Documents/proyectos/actividad_01-fase1` (copia de carpeta del fin de la fase 1; se conserva por decisión del usuario).
 
 ---
@@ -36,6 +36,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | 2026-11-20 | Se conecta el proyecto a GitHub: `origin` = `https://github.com/luisdanielcastano2000-prog/PruebaCIFO_DEL.git` (repositorio público, estaba vacío). GitHub sale de "fuera de alcance". | Pedido por el usuario. |
 | 2026-11-20 | Email de los commits: el *noreply* de GitHub (`359060953+luisdanielcastano2000-prog@users.noreply.github.com`) en lugar del Gmail. Los 2 commits existentes se reescribieron con ese email (mismo contenido, nuevos identificadores). | El repositorio es público: no exponer el email personal. Opción a, elegida por el usuario. |
 | 2026-11-20 | Login en GitHub con **token** (HTTPS) guardado en el llavero de macOS; el push lo ejecuta el usuario en su terminal y el token nunca se pega en el chat. | Opción a, elegida por el usuario (frente a instalar Homebrew + `gh`). |
+| 2026-11-20 | El token pegado en el chat **no se revoca**. | Decisión del usuario: entorno de clase y repositorio de prueba. El token solo da acceso a `PruebaCIFO_DEL`. |
 | 2026-11-20 | Claude nunca hace push sin aprobación del usuario. Añadido a la regla 6 de `CLAUDE.md`. | Push publica en internet. |
 
 ---

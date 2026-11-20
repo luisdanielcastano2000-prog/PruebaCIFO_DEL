@@ -98,7 +98,7 @@ catalogo-tech/                  ← raíz, con este CLAUDE.md
 - Cuando ayude, muestra el recorrido de un dato con un esquema de texto.
 
 ## Fuera de alcance (salvo que el usuario lo pida)
-Autenticación en la app, despliegue, Docker, frameworks de frontend (React, Vue…), librerías CSS, TypeScript en el frontend, `localStorage` (rompería la lección de la fase 1), tests automáticos, variables de entorno con `@nestjs/config` (la URI de MongoDB va en `app.module.ts`, con un comentario que lo explique).
+Autenticación en la app, Docker, frameworks de frontend (React, Vue…), librerías CSS, TypeScript en el frontend, `localStorage` (rompería la lección de la fase 1), tests automáticos, variables de entorno con `@nestjs/config` (la URI de MongoDB va en `app.module.ts`, con un comentario que lo explique).
 
 ## Fases
 ### Fase 1 · Frontend simple
@@ -123,6 +123,15 @@ Comprobar: MongoDB Community y MongoDB Compass (sin Homebrew: el usuario del Mac
 - [x] 3.3 Sustituir el array del service por el schema de MongoDB. Comprobar que el frontend funciona sin cambios.
 - [x] 3.4 Comprobar que los datos siguen ahí tras reiniciar el servidor y verlos en Compass.
 - [x] 3.5 Repaso: esquema del recorrido completo de un dato + README con los pasos para arrancar el proyecto.
+
+### Fase 4 · Revisión y deploy
+Servicios: MongoDB Atlas (M0), Render (backend), GitHub Pages (frontend). Las cuentas las crea el usuario; Claude guía. Secretos (contraseña de Atlas) nunca en el chat ni en el repo.
+- [ ] 4.1 Revisión completa (código + documentación) y correcciones.
+- [ ] 4.2 Preparar para producción: variables de entorno en el backend (`MONGODB_URI`, `PORT`, `CORS_ORIGINS`) y URL de la API según dónde se abra el frontend.
+- [ ] 4.3 Base de datos en MongoDB Atlas.
+- [ ] 4.4 Backend en Render.
+- [ ] 4.5 Frontend en GitHub Pages.
+- [ ] 4.6 Comprobación final + README con las direcciones públicas.
 
 ## Cómo arrancar el proyecto
 _(Versión completa y explicada en `README.md`.)_

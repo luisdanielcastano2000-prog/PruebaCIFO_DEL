@@ -6,8 +6,8 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 ---
 
 ## Estado actual
-- **Fase:** 3 · Base de datos (MongoDB). **Completada** por Claude en trabajo autónomo. **Proyecto terminado** (las 3 fases); faltan las comprobaciones del usuario.
-- **Siguiente paso:** que el usuario haga las comprobaciones de la fase 3 (Compass + web); dijo que las hará más tarde.
+- **Fase:** 4 · Revisión y deploy. En curso. (Fases 1–3 terminadas y verificadas por el usuario.)
+- **Siguiente paso:** 4.1 · Revisión completa (Claude, todo seguido; correcciones presentadas juntas).
 - **Procesos corriendo:** MongoDB (`mongod`, puerto 27017) y servidor NestJS (puerto 3000), ambos arrancados por Claude en segundo plano.
 - **Pendiente de decidir:** nada.
 - **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). **Todo subido**, incluida la fase 3 (push aprobado por el usuario).
@@ -57,6 +57,9 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | 2026-11-20 | Un id con formato no válido para MongoDB responde **404** (no 500). | Mismo comportamiento que en la fase 2. |
 | 2026-11-20 | La base empieza **vacía**: no se cargan los 3 productos de ejemplo. | Así el usuario ve la lección de la fase 3: `catalogo_tech` aparece en Compass solo al guardar el primer producto. |
 | 2026-11-20 | Tras las pruebas, Claude **borró la base `catalogo_tech`** (solo contenía su producto de prueba; lo comprobó antes de borrar). | Que el usuario vea por sí mismo cómo aparece la base en Compass al guardar su primer producto. |
+| 2026-11-20 | **Fase 4 (nueva): revisión completa + deploy.** Servicios: **MongoDB Atlas** (M0 gratis) para la base, **Render** (gratis) para el backend, **GitHub Pages** para el frontend. Deploy sale de "fuera de alcance". | Pedido por el usuario; servicios aprobados por él. Avisado: las cuentas las crea él, la app pública no tiene login (cualquiera puede editar/borrar), Render gratis "se duerme". |
+| 2026-11-20 | Configuración de producción con **variables de entorno leídas con `process.env`** (sin instalar `@nestjs/config`). La contraseña de Atlas **nunca** en el chat ni en el repositorio: solo en los ajustes de Render. | Repositorio público; `@nestjs/config` sigue fuera de alcance porque no hace falta. |
+| 2026-11-20 | Revisión 4.1: Claude la hace entera y presenta las correcciones juntas. | Elegido por el usuario. |
 | 2026-11-20 | Claude nunca hace push sin aprobación del usuario. Añadido a la regla 6 de `CLAUDE.md`. | Push publica en internet. |
 
 ---
@@ -176,3 +179,8 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 - **Cierre de la fase 3** — pasos marcados en `CLAUDE.md`; *Glosario* y *Cómo arrancar* al día. Commit local `Fase 3`. MongoDB y backend dejados **encendidos** para que el usuario pruebe.
   - Resumen de lo aprendido: la base de datos es una pieza más con su propio programa (`mongod`) y su puerto; el backend se conecta a ella con Mongoose y una URI; el schema define cómo se guardan los productos; al cambiar el array por MongoDB **solo cambió el backend**, el frontend quedó igual; ahora los datos sobreviven a recargar la página, a reiniciar el backend y a reiniciar la base de datos.
 - Push de la fase 3 aprobado por el usuario ("hazlo tú"): subidos `Paso 3.1` … `Paso 3.4`, `Fase 3` y este último commit de la bitácora. El usuario hará las comprobaciones más tarde.
+- **Compass (a petición del usuario)** — Claude abrió Compass con `open -a … --args mongodb://localhost:27017` (MongoDB registró conexiones nuevas al abrirlo; Claude no puede ver la pantalla para confirmarlo). Creó "MacBook Air 13" a través de la API (como lo haría la web): apareció la base `catalogo_tech` con la colección `products` y 1 documento (`_id` de MongoDB, `createdAt`, `updatedAt`). Falta que el usuario lo vea en la ventana de Compass.
+- **Verificado por el usuario:** Compass muestra `catalogo_tech` → `products` con el producto, y la web funciona. "Está todo bien".
+
+### 2026-11-20 (fase 4)
+- Plan de la fase 4 presentado y aprobado (Atlas + Render + GitHub Pages). Commit y push de la verificación de la fase 3 aprobados.

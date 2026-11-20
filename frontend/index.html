@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo Tech</title>
+  <!-- Enlaza la hoja de estilos: aquí se decide cómo se ve la página -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Catálogo Tech</h1>
+    <p>Añade productos tecnológicos y consúltalos en el listado.</p>
+  </header>
+
+  <main>
+    <!-- FORMULARIO: las reglas de cada campo (required, minlength, min…) las comprueba el navegador antes de enviar -->
+    <section id="form-section">
+      <h2>Nuevo producto</h2>
+      <form id="product-form">
+        <label for="name">Nombre *</label>
+        <input type="text" id="name" name="name" required minlength="2" maxlength="80"
+               placeholder="Ej.: MacBook Air 13">
+
+        <label for="category">Categoría *</label>
+        <!-- Lista cerrada: el texto se muestra en español; el "value" es lo que se guarda -->
+        <select id="category" name="category" required>
+          <option value="">— Elige una categoría —</option>
+          <option value="portatil">Portátil</option>
+          <option value="movil">Móvil</option>
+          <option value="tablet">Tablet</option>
+          <option value="audio">Audio</option>
+          <option value="accesorio">Accesorio</option>
+        </select>
+
+        <label for="price">Precio (€) *</label>
+        <!-- step="0.01" permite hasta 2 decimales; min="0" impide precios negativos -->
+        <input type="number" id="price" name="price" required min="0" step="0.01" placeholder="Ej.: 999.99">
+
+        <label for="stock">Stock (unidades) *</label>
+        <!-- step="1" obliga a números enteros -->
+        <input type="number" id="stock" name="stock" required min="0" step="1" placeholder="Ej.: 10">
+
+        <label for="description">Descripción (opcional)</label>
+        <textarea id="description" name="description" maxlength="300" rows="3"
+                  placeholder="Máximo 300 caracteres"></textarea>
+
+        <button type="submit">Añadir producto</button>
+      </form>
+    </section>
+
+    <!-- LISTADO: empieza vacío; JavaScript (app.js) pinta aquí las tarjetas a partir del array de productos -->
+    <section id="list-section">
+      <h2>Productos</h2>
+      <div id="product-list"></div>
+    </section>
+  </main>
+
+  <!-- Carga el JavaScript al final, cuando el HTML ya existe y app.js puede encontrar el formulario y el listado -->
+  <script src="app.js"></script>
+</body>
+</html>

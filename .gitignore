@@ -1,0 +1,10 @@
+# Archivos que Git no debe guardar
+
+# Archivo oculto que crea macOS en cada carpeta
+.DS_Store
+
+# Librerías descargadas por npm (se regeneran con `npm install`)
+node_modules/
+
+# Código compilado del backend (se regenera al arrancar o compilar)
+dist/

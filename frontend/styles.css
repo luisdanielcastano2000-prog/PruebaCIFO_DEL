@@ -1,0 +1,153 @@
+/* Estilos de Catálogo Tech: el HTML define QUÉ hay en la página; este archivo, CÓMO se ve */
+
+/* Base: tipografía legible y colores suaves para toda la página */
+* {
+  box-sizing: border-box; /* para que el ancho de las cajas incluya su relleno y borde */
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f4f5f7;
+  color: #222;
+  line-height: 1.5;
+}
+
+header {
+  background: #1f2937;
+  color: #fff;
+  padding: 1.5rem 2rem;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  margin: 0.25rem 0 0;
+  color: #cbd5e1;
+}
+
+/* Disposición: formulario a la izquierda y listado a la derecha (en pantallas anchas) */
+main {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* En pantallas estrechas (móvil), una sola columna */
+@media (max-width: 800px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-top: 0;
+}
+
+/* Formulario: cada etiqueta encima de su campo */
+#product-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#product-form label {
+  font-weight: 600;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+#product-form input,
+#product-form select,
+#product-form textarea {
+  padding: 0.5rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font: inherit;
+}
+
+/* Borde azul en el campo donde está escribiendo el usuario */
+#product-form input:focus,
+#product-form select:focus,
+#product-form textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+#product-form button {
+  margin-top: 1.25rem;
+  padding: 0.75rem;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#product-form button:hover {
+  background: #1d4ed8;
+}
+
+/* Listado: las tarjetas se colocan solas en cuadrícula según el espacio disponible */
+#product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.product-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.product-card h3 {
+  margin: 0 0 0.5rem;
+}
+
+.product-card p {
+  margin: 0.25rem 0;
+}
+
+.product-card .category {
+  display: inline-block;
+  background: #e0e7ff;
+  color: #3730a3;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.product-card .price {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.product-card .description {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* Producto agotado (stock 0): borde y texto de stock en rojo */
+.product-card.out-of-stock {
+  border-color: #fca5a5;
+  background: #fef2f2;
+}
+
+.product-card.out-of-stock .stock {
+  color: #b91c1c;
+  font-weight: 600;
+}

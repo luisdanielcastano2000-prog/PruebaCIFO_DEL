@@ -16,7 +16,8 @@
   <main>
     <!-- FORMULARIO: las reglas de cada campo (required, minlength, min…) las comprueba el navegador antes de enviar -->
     <section id="form-section">
-      <h2>Nuevo producto</h2>
+      <!-- El título y el botón cambian cuando se está editando un producto (lo hace app.js) -->
+      <h2 id="form-title">Nuevo producto</h2>
       <form id="product-form">
         <label for="name">Nombre *</label>
         <input type="text" id="name" name="name" required minlength="2" maxlength="80"
@@ -45,7 +46,9 @@
         <textarea id="description" name="description" maxlength="300" rows="3"
                   placeholder="Máximo 300 caracteres"></textarea>
 
-        <button type="submit">Añadir producto</button>
+        <button type="submit" id="submit-button">Añadir producto</button>
+        <!-- Solo visible en modo edición: sale de la edición sin guardar -->
+        <button type="button" id="cancel-button" class="secondary" hidden>Cancelar</button>
       </form>
       <!-- Mensajes del formulario: errores de validación del backend o problemas de conexión -->
       <p id="form-message" class="message" hidden></p>

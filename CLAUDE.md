@@ -113,7 +113,7 @@ Comprobar: Node.js LTS.
 - [x] 2.1 Proyecto NestJS mínimo que responde en `localhost:3000`.
 - [x] 2.2 API de productos (CRUD) con los datos en un array del service; DTOs y validación. Probar sin frontend (navegador para GET, `curl` para el resto).
 - [x] 2.3 Conectar frontend y backend: `fetch` y CORS; crear y listar desde la web.
-- [ ] 2.4 Editar y borrar desde la web.
+- [x] 2.4 Editar y borrar desde la web.
 - [ ] 2.5 Demostrar la limitación: al reiniciar el servidor, los datos desaparecen.
 
 ### Fase 3 · Base de datos (MongoDB)
@@ -179,3 +179,4 @@ _(Se va completando: término — definición en una línea.)_
 - **`fetch`** — función de JavaScript del navegador para hacer peticiones HTTP al backend desde la página.
 - **Origen** — protocolo + dirección + puerto de una página (`http://127.0.0.1:5500`); otro puerto = otro origen.
 - **CORS** — permiso que da el backend para que páginas de otro origen le pidan datos; sin él, el navegador bloquea la respuesta.
+- **Delegación de eventos** — un solo "escuchador" en el contenedor (`#product-list`) atiende los clics de todos los botones de las tarjetas.

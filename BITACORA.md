@@ -7,7 +7,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ## Estado actual
 - **Fase:** 2 · Backend (NestJS). En curso (trabajo autónomo de Claude).
-- **Siguiente paso:** 2.4 · Editar y borrar desde la web.
+- **Siguiente paso:** 2.5 · Demostrar la limitación (reiniciar el servidor).
 - **Procesos corriendo:** servidor NestJS (`npm run start:dev` en `backend/`, arrancado por Claude en segundo plano), puerto 3000.
 - **Pendiente de decidir:** nada.
 - **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Último commit subido: `8cd33b2 Bitácora: GitHub conectado`. Para subir nuevos commits basta `git push` (el login quedó guardado en el llavero).
@@ -45,6 +45,8 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | 2026-11-20 | Tras crear un producto, el frontend **vuelve a pedir la lista** al backend (en vez de añadirlo a mano). | Lo que se ve es siempre lo que hay en el servidor (una única fuente de verdad). |
 | 2026-11-20 | La página muestra mensajes: "Cargando…", "Todavía no hay productos", errores de validación del backend (400) y "No se puede conectar con el servidor". | Que el usuario vea qué pasa cuando el backend falla o rechaza datos (útil para aprender). |
 | 2026-11-20 | `*.tsbuildinfo` añadido a `.gitignore` y quitado del repositorio. | Es un archivo temporal de compilación; se coló en el commit del 2.1. |
+| 2026-11-20 | Editar reutiliza el **mismo formulario** (cambia a "Editar producto" / "Guardar cambios" + botón Cancelar; la tarjeta editada se marca en azul). Borrar pide confirmación (`confirm`). | Menos piezas nuevas que aprender; la confirmación evita borrados por error. |
+| 2026-11-20 | Los mensajes de validación del backend se muestran tal cual, **en inglés** (los de `class-validator`). | Traducirlos amplía el alcance; queda como propuesta para el usuario. |
 | 2026-11-20 | Claude nunca hace push sin aprobación del usuario. Añadido a la regla 6 de `CLAUDE.md`. | Push publica en internet. |
 
 ---
@@ -118,3 +120,9 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
   - ⚠️ **Sin verificar en el navegador**: en el Mac no hay un navegador que Claude pueda controlar. Queda en la lista de comprobaciones del usuario.
   - `tsconfig.build.tsbuildinfo` sacado del repositorio y añadido a `.gitignore`.
   - **2.3 completado** (a falta de la comprobación visual). Commit local `Paso 2.3: conectar frontend y backend`.
+- **2.4 · Editar y borrar desde la web**
+  - `index.html`: título del formulario con id, botón Cancelar (oculto salvo al editar). `styles.css`: botones Editar/Borrar en cada tarjeta y borde azul en la que se edita.
+  - `app.js`: `updateProduct()` (PATCH), `deleteProduct()` (DELETE con `confirm`), `startEditing()` / `stopEditing()`, un solo "escuchador" de clics en el listado.
+  - Comprobado por Claude **simulando la página** con `jsdom` (navegador falso de Node, instalado solo en la carpeta temporal de Claude, no en el proyecto) contra el backend real: carga de los 3 ejemplos, crear, editar (título/botón/borde azul), guardar con stock 0 (sale en rojo), cancelar, error 400 mostrado en rojo, borrar, y aviso de "no se puede conectar" con el servidor caído. Todo correcto.
+  - ⚠️ Falta la comprobación visual del usuario en el navegador real.
+  - **2.4 completado.** Commit local `Paso 2.4: editar y borrar desde la web`.

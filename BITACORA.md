@@ -7,7 +7,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ## Estado actual
 - **Fase:** 3 · Base de datos (MongoDB). En curso (trabajo autónomo de Claude).
-- **Siguiente paso:** 3.2 · Conectar NestJS con Mongoose.
+- **Siguiente paso:** 3.3 · Sustituir el array del service por MongoDB.
 - **Procesos corriendo:** MongoDB (`mongod`, puerto 27017) y servidor NestJS (puerto 3000), ambos arrancados por Claude en segundo plano.
 - **Pendiente de decidir:** nada.
 - **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Todo subido hasta `Mensajes de error en español` (push aprobado por el usuario).
@@ -68,6 +68,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | NestJS (en `backend/`) | Generado con `npx @nestjs/cli new` | `@nestjs/core` 12.0.1 |
 | `class-validator` / `class-transformer` (en `backend/`) | Instalados con `npm install` (paso 2.2) | 0.15.1 / 0.5.1 |
 | `@nestjs/mapped-types` (en `backend/`) | Instalado por el Nest CLI al generar el recurso | — |
+| `@nestjs/mongoose` / `mongoose` (en `backend/`) | Instalados con `npm install` (paso 3.2) | 12.0.1 / 9.12.2 |
 | npm / npx | Instalados | 11.20.0 |
 | Permisos del usuario del Mac | **No es administrador** (no puede usar `sudo` ni instalar Homebrew) | — |
 | MongoDB Community (`~/mongodb`) | Instalado a mano desde `fastdl.mongodb.org` (huella sha256 comprobada). Datos en `~/mongodb-data` | 9.0.8 |
@@ -147,3 +148,9 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
   - Compass 1.53.3 (zip para chip Apple): sha256 correcto, copiado a `~/Applications/MongoDB Compass.app`, firma de MongoDB, Inc. aceptada por macOS.
   - ⚠️ Falta que el usuario abra Compass y se conecte (está en su lista de comprobaciones).
   - **3.1 completado** por parte de Claude. Commit local `Paso 3.1: MongoDB y Compass`.
+- **3.2 · Conectar NestJS con Mongoose**
+  - `npm install @nestjs/mongoose mongoose`. `npm audit` avisa de 2 fallos "high" (`tmp`, `undici`) solo en herramientas de desarrollo; con `--omit=dev` → 0. No se usa `npm audit fix --force` (podría romper versiones).
+  - `app.module.ts`: `MongooseModule.forRoot('mongodb://localhost:27017/catalogo_tech')`, con comentario explicando la URI y por qué no va en `.env`.
+  - Log de NestJS: "MongooseCoreModule dependencies initialized"; log de MongoDB: conexión aceptada desde `[::1]` con el driver de Mongoose (el ajuste de IPv6 del 3.1 era necesario).
+  - Comprobado: `catalogo_tech` **no existe todavía** (solo `admin`, `config`, `local`): MongoDB crea la base al guardar el primer documento.
+  - **3.2 completado.** Commit local `Paso 3.2: conectar NestJS con MongoDB`.

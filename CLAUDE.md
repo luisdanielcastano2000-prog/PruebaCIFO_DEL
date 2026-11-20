@@ -119,7 +119,7 @@ Comprobar: Node.js LTS.
 ### Fase 3 · Base de datos (MongoDB)
 Comprobar: MongoDB Community y MongoDB Compass (sin Homebrew: el usuario del Mac no es administrador; instalación manual en la carpeta del usuario).
 - [x] 3.1 Arrancar MongoDB y conectarse con Compass.
-- [ ] 3.2 Conectar NestJS con Mongoose; comprobar en el log que conecta. (La base no aparece en Compass hasta guardar el primer dato: explicar por qué.)
+- [x] 3.2 Conectar NestJS con Mongoose; comprobar en el log que conecta. (La base no aparece en Compass hasta guardar el primer dato: explicar por qué.)
 - [ ] 3.3 Sustituir el array del service por el schema de MongoDB. Comprobar que el frontend funciona sin cambios.
 - [ ] 3.4 Comprobar que los datos siguen ahí tras reiniciar el servidor y verlos en Compass.
 - [ ] 3.5 Repaso: esquema del recorrido completo de un dato + README con los pasos para arrancar el proyecto.
@@ -192,4 +192,6 @@ _(Se va completando: término — definición en una línea.)_
 - **Colección** — grupo de documentos del mismo tipo dentro de una base (p. ej., `products`); equivale a una estantería.
 - **Documento** — un registro guardado en MongoDB (un producto); equivale a una caja en la estantería.
 - **MongoDB Compass** — aplicación con ventanas para ver y editar lo que hay en MongoDB.
+- **Mongoose** — librería que conecta NestJS con MongoDB y define la forma (schema) de los documentos (el encargado del almacén que sabe cómo colocar cada caja).
+- **URI de conexión** — la dirección de la base de datos: `mongodb://localhost:27017/catalogo_tech`.
 - **Delegación de eventos** — un solo "escuchador" en el contenedor (`#product-list`) atiende los clics de todos los botones de las tarjetas.

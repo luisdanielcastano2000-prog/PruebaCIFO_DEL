@@ -11,7 +11,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 - **Para retomar el lunes:** ver `RETOMAR.md` (prompt para pegar + lista de comprobación).
 - **Procesos corriendo:** ninguno cuando se cierre la sesión (MongoDB local y el backend local los arrancó Claude y se apagan con ella; los datos locales quedan en `~/mongodb-data`).
 - **Pendiente de decidir:** nada.
-- **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Commit `Pausa de fin de semana: preparar para retomar` (push según lo que diga el usuario).
+- **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Todo subido a GitHub, incluido `RETOMAR.md` (push aprobado por el usuario).
 - **Copias de seguridad:** `~/Documents/proyectos/actividad_01-fase1` (copia de carpeta del fin de la fase 1; se conserva por decisión del usuario).
 
 ---

@@ -6,11 +6,11 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 ---
 
 ## Estado actual
-- **Fase:** 2 · Backend (NestJS). Sin empezar.
-- **Siguiente paso:** 2.2 · API de productos (CRUD en memoria). ⛔ **No empezar hasta que el usuario lo diga.**
-- **Procesos corriendo:** ninguno. El servidor NestJS se apagó a petición del usuario mientras esperamos (para encenderlo: ver *Cómo arrancar* en `CLAUDE.md`).
+- **Fase:** 2 · Backend (NestJS). En curso (trabajo autónomo de Claude).
+- **Siguiente paso:** 2.3 · Conectar frontend y backend.
+- **Procesos corriendo:** servidor NestJS (`npm run start:dev` en `backend/`, arrancado por Claude en segundo plano), puerto 3000.
 - **Pendiente de decidir:** nada.
-- **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Último commit subido: `8455bcd Nuevos cambios en clase con TOKEN`. Para subir nuevos commits basta `git push` (el login quedó guardado en el llavero).
+- **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Último commit subido: `8cd33b2 Bitácora: GitHub conectado`. Para subir nuevos commits basta `git push` (el login quedó guardado en el llavero).
 - **Copias de seguridad:** `~/Documents/proyectos/actividad_01-fase1` (copia de carpeta del fin de la fase 1; se conserva por decisión del usuario).
 
 ---
@@ -37,6 +37,10 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | 2026-11-20 | Email de los commits: el *noreply* de GitHub (`359060953+luisdanielcastano2000-prog@users.noreply.github.com`) en lugar del Gmail. Los 2 commits existentes se reescribieron con ese email (mismo contenido, nuevos identificadores). | El repositorio es público: no exponer el email personal. Opción a, elegida por el usuario. |
 | 2026-11-20 | Login en GitHub con **token** (HTTPS) guardado en el llavero de macOS; el push lo ejecuta el usuario en su terminal y el token nunca se pega en el chat. | Opción a, elegida por el usuario (frente a instalar Homebrew + `gh`). |
 | 2026-11-20 | El token pegado en el chat **no se revoca**. | Decisión del usuario: entorno de clase y repositorio de prueba. El token solo da acceso a `PruebaCIFO_DEL`. |
+| 2026-11-20 | **Trabajo autónomo autorizado**: revisar la fase 1 y hacer la fase 2 completa mientras el usuario descansa, sin esperar aprobación en cada paso. Claude hará commits locales por paso; el **push** a GitHub se deja para cuando vuelva el usuario. Las verificaciones en el navegador quedan como lista para el usuario. | Pedido explícito del usuario ("haz todo lo necesario mientras estoy de descanso"). |
+| 2026-11-20 | El service arranca con los **mismos 3 productos de ejemplo** de la fase 1 (con horas de creación escalonadas para que salgan en el mismo orden). | Que la web se vea igual al conectarla en el 2.3, y que en el 2.5 se vea la limitación igual que en el 1.4 (lo añadido desaparece, los ejemplos vuelven). |
+| 2026-11-20 | El `_id` se genera con 24 caracteres hexadecimales (como un ObjectId de MongoDB); las fechas se envían en formato ISO. | Imitar el formato de MongoDB para que en la fase 3 el frontend no cambie. |
+| 2026-11-20 | Validación con `class-validator` + `ValidationPipe` (`whitelist`, `forbidNonWhitelisted`, `transform`): los campos que no existen en el DTO se rechazan. | Lo marcaba `CLAUDE.md`. El `AGENTS.md` de NestJS sugiere otras librerías (Zod…), pero manda `CLAUDE.md`. Tampoco se añaden tests (fuera de alcance). |
 | 2026-11-20 | Claude nunca hace push sin aprobación del usuario. Añadido a la regla 6 de `CLAUDE.md`. | Push publica en internet. |
 
 ---
@@ -51,6 +55,8 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | Homebrew | **No instalado** (se verá en la fase 3) | — |
 | GitHub CLI (`gh`) | No instalado (no hace falta: login con token) | — |
 | NestJS (en `backend/`) | Generado con `npx @nestjs/cli new` | `@nestjs/core` 12.0.1 |
+| `class-validator` / `class-transformer` (en `backend/`) | Instalados con `npm install` (paso 2.2) | 0.15.1 / 0.5.1 |
+| `@nestjs/mapped-types` (en `backend/`) | Instalado por el Nest CLI al generar el recurso | — |
 | npm / npx | Instalados | 11.20.0 |
 | MongoDB, Compass | Sin comprobar (fase 3) | — |
 
@@ -91,3 +97,12 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
   - **Primer push hecho por el usuario** (`git push -u origin main`) con su token: GitHub recibió `Fase 1`, `Paso 2.1…` y `Conexión con GitHub`.
   - El usuario hizo un commit desde el panel de Git de VS Code sin mensaje: VS Code abrió la pestaña `COMMIT_EDITMSG` y Git quedó esperando (parecía que "tardaba"). Se resolvió escribiendo el mensaje y cerrando la pestaña: commit `8455bcd Nuevos cambios en clase con TOKEN`, subido a GitHub. Comprobado: el token no está en ningún commit.
   - **Incidente:** tras ese commit, `BITACORA.md` en disco volvió a una versión antigua (probablemente se guardó una pestaña vieja abierta en VS Code). Restaurado con `git restore BITACORA.md`, con permiso del usuario. Lección: cerrar y reabrir las pestañas de archivos que Claude modifica, o no guardarlas si tienen cambios viejos.
+- **Trabajo autónomo (usuario en descanso).** Revisión de la fase 1: los 4 pasos, *Cómo arrancar*, *Glosario* y commit `Fase 1` están hechos. Nada pendiente.
+- **2.2 · API de productos**
+  - `npx nest g resource products --no-spec --type rest --crud` en `backend/`: creó `src/products/` (module, controller, service, dto/, entities/) y lo registró en `app.module.ts`.
+  - `npm install class-validator class-transformer` (aviso de `fsevents` sin importancia).
+  - Escritos: `product.entity.ts` (forma del producto + lista de categorías), `create-product.dto.ts` (reglas), `update-product.dto.ts` (igual pero todo opcional), `products.service.ts` (array + CRUD + 404), `products.controller.ts` (ids como texto), `main.ts` (`ValidationPipe`).
+  - Comprobado con `curl`: GET lista (más recientes primero), POST → 201, GET uno → 200, PATCH → 200 (cambia `updatedAt`), DELETE → 200, GET de uno borrado → 404, datos incorrectos o campos extra → 400 con la lista de errores.
+  - Corregido: los 3 ejemplos salían desordenados (creados en el mismo milisegundo) → horas de creación escalonadas.
+  - `prettier` (formato) y `npm run lint`: sin avisos.
+  - **2.2 completado.** Commit local `Paso 2.2: API de productos`.

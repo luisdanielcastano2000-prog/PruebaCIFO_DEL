@@ -111,7 +111,7 @@ Comprobar: VS Code + extensión Live Server.
 ### Fase 2 · Backend (NestJS, datos en memoria)
 Comprobar: Node.js LTS.
 - [x] 2.1 Proyecto NestJS mínimo que responde en `localhost:3000`.
-- [ ] 2.2 API de productos (CRUD) con los datos en un array del service; DTOs y validación. Probar sin frontend (navegador para GET, `curl` para el resto).
+- [x] 2.2 API de productos (CRUD) con los datos en un array del service; DTOs y validación. Probar sin frontend (navegador para GET, `curl` para el resto).
 - [ ] 2.3 Conectar frontend y backend: `fetch` y CORS; crear y listar desde la web.
 - [ ] 2.4 Editar y borrar desde la web.
 - [ ] 2.5 Demostrar la limitación: al reiniciar el servidor, los datos desaparecen.
@@ -169,3 +169,10 @@ _(Se va completando: término — definición en una línea.)_
 - **Respuesta / código de estado** — lo que devuelve el servidor, con un número: `200` = bien, `404` = no existe.
 - **Controller** — parte del backend que recibe las peticiones y decide qué hacer según la ruta (el dependiente).
 - **Service** — parte del backend que hace el trabajo y guarda/gestiona los datos (el almacén).
+- **API REST** — conjunto de direcciones (rutas) del backend a las que el frontend hace peticiones con un método: GET leer, POST crear, PATCH editar, DELETE borrar.
+- **Endpoint** — una ruta concreta de la API con su método (p. ej., `GET /products`).
+- **CRUD** — las 4 operaciones básicas sobre datos: Crear, Leer (*Read*), Actualizar (*Update*), Borrar (*Delete*).
+- **JSON** — formato de texto con el que frontend y backend se envían datos (`{"name":"Pixel 9","price":799}`).
+- **DTO** — clase que define la forma y las reglas de los datos que llegan al backend (la hoja de pedido que el dependiente revisa).
+- **ValidationPipe** — el filtro de NestJS que aplica las reglas del DTO y responde `400` con los errores si no se cumplen.
+- **`curl`** — programa de terminal para enviar peticiones HTTP sin navegador.

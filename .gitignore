@@ -8,3 +8,6 @@ node_modules/
 
 # Código compilado del backend (se regenera al arrancar o compilar)
 dist/
+
+# Archivos temporales de compilación de TypeScript
+*.tsbuildinfo

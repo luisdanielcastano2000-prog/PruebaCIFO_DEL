@@ -53,7 +53,7 @@ CORS activado en el backend solo para el origen de Live Server (`http://127.0.0.
 ```
 catalogo-tech/                  ← raíz, con este CLAUDE.md
 ├── CLAUDE.md
-├── .gitignore                  ← lo que Git no guarda (node_modules/, dist/, .DS_Store)
+├── .gitignore                  ← lo que Git no guarda (node_modules/, dist/, .DS_Store, *.tsbuildinfo)
 ├── BITACORA.md                 ← registro de lo hecho y de las decisiones (se actualiza en cada paso)
 ├── README.md                   ← cómo arrancar el proyecto (final de la fase 3)
 ├── frontend/                   ← fase 1
@@ -112,7 +112,7 @@ Comprobar: VS Code + extensión Live Server.
 Comprobar: Node.js LTS.
 - [x] 2.1 Proyecto NestJS mínimo que responde en `localhost:3000`.
 - [x] 2.2 API de productos (CRUD) con los datos en un array del service; DTOs y validación. Probar sin frontend (navegador para GET, `curl` para el resto).
-- [ ] 2.3 Conectar frontend y backend: `fetch` y CORS; crear y listar desde la web.
+- [x] 2.3 Conectar frontend y backend: `fetch` y CORS; crear y listar desde la web.
 - [ ] 2.4 Editar y borrar desde la web.
 - [ ] 2.5 Demostrar la limitación: al reiniciar el servidor, los datos desaparecen.
 
@@ -176,3 +176,6 @@ _(Se va completando: término — definición en una línea.)_
 - **DTO** — clase que define la forma y las reglas de los datos que llegan al backend (la hoja de pedido que el dependiente revisa).
 - **ValidationPipe** — el filtro de NestJS que aplica las reglas del DTO y responde `400` con los errores si no se cumplen.
 - **`curl`** — programa de terminal para enviar peticiones HTTP sin navegador.
+- **`fetch`** — función de JavaScript del navegador para hacer peticiones HTTP al backend desde la página.
+- **Origen** — protocolo + dirección + puerto de una página (`http://127.0.0.1:5500`); otro puerto = otro origen.
+- **CORS** — permiso que da el backend para que páginas de otro origen le pidan datos; sin él, el navegador bloquea la respuesta.

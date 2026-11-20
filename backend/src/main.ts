@@ -6,6 +6,12 @@ import { AppModule } from './app.module.js';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // CORS: el navegador solo deja que una página pida datos a OTRA dirección (otro puerto cuenta como otra)
+  // si esa dirección lo autoriza. Aquí autorizamos únicamente a la página servida por Live Server.
+  app.enableCors({
+    origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
+  });
+
   // Revisa los datos que llegan con las reglas de los DTO; si no las cumplen, responde 400 con los errores.
   // whitelist + forbidNonWhitelisted: rechaza campos que no existen en el DTO.
   // transform: convierte el JSON recibido en un objeto del DTO.

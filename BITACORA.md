@@ -7,7 +7,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ## Estado actual
 - **Fase:** 2 · Backend (NestJS). En curso (trabajo autónomo de Claude).
-- **Siguiente paso:** 2.3 · Conectar frontend y backend.
+- **Siguiente paso:** 2.4 · Editar y borrar desde la web.
 - **Procesos corriendo:** servidor NestJS (`npm run start:dev` en `backend/`, arrancado por Claude en segundo plano), puerto 3000.
 - **Pendiente de decidir:** nada.
 - **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Último commit subido: `8cd33b2 Bitácora: GitHub conectado`. Para subir nuevos commits basta `git push` (el login quedó guardado en el llavero).
@@ -41,6 +41,10 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | 2026-11-20 | El service arranca con los **mismos 3 productos de ejemplo** de la fase 1 (con horas de creación escalonadas para que salgan en el mismo orden). | Que la web se vea igual al conectarla en el 2.3, y que en el 2.5 se vea la limitación igual que en el 1.4 (lo añadido desaparece, los ejemplos vuelven). |
 | 2026-11-20 | El `_id` se genera con 24 caracteres hexadecimales (como un ObjectId de MongoDB); las fechas se envían en formato ISO. | Imitar el formato de MongoDB para que en la fase 3 el frontend no cambie. |
 | 2026-11-20 | Validación con `class-validator` + `ValidationPipe` (`whitelist`, `forbidNonWhitelisted`, `transform`): los campos que no existen en el DTO se rechazan. | Lo marcaba `CLAUDE.md`. El `AGENTS.md` de NestJS sugiere otras librerías (Zod…), pero manda `CLAUDE.md`. Tampoco se añaden tests (fuera de alcance). |
+| 2026-11-20 | CORS solo para `http://127.0.0.1:5500` y `http://localhost:5500`. | Lo marcaba `CLAUDE.md`: solo la página de Live Server puede usar la API desde el navegador. |
+| 2026-11-20 | Tras crear un producto, el frontend **vuelve a pedir la lista** al backend (en vez de añadirlo a mano). | Lo que se ve es siempre lo que hay en el servidor (una única fuente de verdad). |
+| 2026-11-20 | La página muestra mensajes: "Cargando…", "Todavía no hay productos", errores de validación del backend (400) y "No se puede conectar con el servidor". | Que el usuario vea qué pasa cuando el backend falla o rechaza datos (útil para aprender). |
+| 2026-11-20 | `*.tsbuildinfo` añadido a `.gitignore` y quitado del repositorio. | Es un archivo temporal de compilación; se coló en el commit del 2.1. |
 | 2026-11-20 | Claude nunca hace push sin aprobación del usuario. Añadido a la regla 6 de `CLAUDE.md`. | Push publica en internet. |
 
 ---
@@ -106,3 +110,11 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
   - Corregido: los 3 ejemplos salían desordenados (creados en el mismo milisegundo) → horas de creación escalonadas.
   - `prettier` (formato) y `npm run lint`: sin avisos.
   - **2.2 completado.** Commit local `Paso 2.2: API de productos`.
+- **2.3 · Conectar frontend y backend**
+  - `main.ts`: `enableCors` para el origen de Live Server.
+  - `index.html`: dos zonas de mensajes (`#form-message`, `#list-message`); `styles.css`: estilos de mensajes.
+  - `app.js` reescrito: `API_URL`, `loadProducts()` (GET), `createProduct()` (POST con JSON), mensajes de error. Ya no hay productos de ejemplo en el frontend: vienen del backend.
+  - Comprobado por Claude con `curl`: cabeceras CORS correctas para los dos orígenes de Live Server y ninguna para otro origen; la "pregunta previa" (preflight) del POST responde 204; POST como lo haría la web → 201. Live Server (del usuario) sirve ya los archivos nuevos.
+  - ⚠️ **Sin verificar en el navegador**: en el Mac no hay un navegador que Claude pueda controlar. Queda en la lista de comprobaciones del usuario.
+  - `tsconfig.build.tsbuildinfo` sacado del repositorio y añadido a `.gitignore`.
+  - **2.3 completado** (a falta de la comprobación visual). Commit local `Paso 2.3: conectar frontend y backend`.

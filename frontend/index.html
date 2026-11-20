@@ -47,11 +47,15 @@
 
         <button type="submit">Añadir producto</button>
       </form>
+      <!-- Mensajes del formulario: errores de validación del backend o problemas de conexión -->
+      <p id="form-message" class="message" hidden></p>
     </section>
 
-    <!-- LISTADO: empieza vacío; JavaScript (app.js) pinta aquí las tarjetas a partir del array de productos -->
+    <!-- LISTADO: empieza vacío; JavaScript (app.js) pide los productos al backend y pinta aquí las tarjetas -->
     <section id="list-section">
       <h2>Productos</h2>
+      <!-- Mensajes del listado: "cargando", "no hay productos" o "no se puede conectar con el servidor" -->
+      <p id="list-message" class="message" hidden></p>
       <div id="product-list"></div>
     </section>
   </main>

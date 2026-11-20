@@ -7,9 +7,10 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ## Estado actual
 - **Fase:** 2 · Backend (NestJS). Sin empezar.
-- **Siguiente paso:** 2.1 · Generar el proyecto NestJS y comprobar que responde en `http://localhost:3000`.
-- **Pendiente de decidir:** aprobar el plan del 2.1 y quién arranca el servidor: Claude (en segundo plano) o el usuario en su propia pestaña de terminal (recomendado).
-- **Control de versiones:** Git en local, rama `main`. Commit `Fase 1` = estado al cerrar la fase 1.
+- **Siguiente paso:** 2.2 · API de productos (CRUD en memoria). ⛔ **No empezar hasta que el usuario lo diga.**
+- **Procesos corriendo:** servidor NestJS (`npm run start:dev` en `backend/`), puerto 3000.
+- **Pendiente de decidir:** nada.
+- **Control de versiones:** Git en local, rama `main`. Commits: `Fase 1` (cierre de la fase 1) y `Paso 2.1: proyecto NestJS mínimo` (intermedio).
 - **Copias de seguridad:** `~/Documents/proyectos/actividad_01-fase1` (copia de carpeta del fin de la fase 1; se conserva por decisión del usuario).
 
 ---
@@ -29,6 +30,9 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | 2026-11-20 | Al cerrar cada fase: commit con el título de la fase (sustituye a la copia de carpeta). Claude nunca hace commit sin aprobación. | `CLAUDE.md`, regla 6 actualizada. |
 | 2026-11-20 | NestJS se seguirá generando con `--skip-git`. | El repositorio ya está en la raíz; no queremos otro dentro de `backend/`. |
 | 2026-11-20 | La copia `actividad_01-fase1` se conserva. | Decisión del usuario. |
+| 2026-11-20 | Plan del paso 2.1 aprobado. El servidor de desarrollo lo arranca **Claude en segundo plano** (opción a). | Elegido por el usuario (Claude recomendaba que lo arrancara el usuario para ver los mensajes en directo). |
+| 2026-11-20 | Las analogías se harán **siempre con una tienda de tecnología / el catálogo** (cliente, dependiente, almacén…). Añadido a "Cómo explicar" en `CLAUDE.md`. | Claude usó una analogía de restaurante y confundió al usuario; el usuario eligió esta opción (a) frente a no usar analogías (b). |
+| 2026-11-20 | No avanzar al paso 2.2 hasta que el usuario lo indique. | Pedido por el usuario. |
 
 ---
 
@@ -40,6 +44,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | Node.js | Instalado (LTS) | v26.13.1 |
 | Git | Ya instalado (Command Line Tools de Apple); no hizo falta instalar | 2.39.5 |
 | Homebrew | **No instalado** (se verá en la fase 3) | — |
+| NestJS (en `backend/`) | Generado con `npx @nestjs/cli new` | `@nestjs/core` 12.0.1 |
 | npm / npx | Instalados | 11.20.0 |
 | MongoDB, Compass | Sin comprobar (fase 3) | — |
 
@@ -63,3 +68,10 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 - **Inicio de la fase 2** — comprobado Node.js; presentado el plan del paso 2.1 (pendiente de aprobación).
 - Creada esta bitácora. Regla 11 en `CLAUDE.md`: leerla al empezar cada sesión y actualizarla tras cada paso.
 - **Git** — comprobado que ya estaba instalado. `git init -b main`, autor local `Luis`, creado `.gitignore`. `CLAUDE.md` actualizado (Contexto, reglas 6, 9 y 10, Fuera de alcance, Estructura, Glosario). Primer commit: `Fase 1`.
+- **2.1 · NestJS mínimo** — `npx @nestjs/cli new backend --skip-git --package-manager npm` en la raíz: creado `backend/` con sus librerías (`node_modules/`, ignorado por Git). Sin repositorio Git anidado.
+  - La plantilla de NestJS 12 trae novedades respecto a lo previsto: módulos ES (los `import` acaban en `.js`), tests con Vitest (no Jest), linter oxlint y un archivo `AGENTS.md` (instrucciones para asistentes de IA). No afectan al plan.
+  - Servidor arrancado con `npm run start:dev` (modo vigilancia: se reinicia al cambiar el código). Log: "Nest application successfully started".
+  - Comprobado por Claude con `curl`: `GET http://localhost:3000` → `200 OK`, "Hello World!". Verificado también por el usuario en el navegador.
+  - Claude explicó `main.ts` / controller / service con una analogía de restaurante; el usuario no la entendió (no tenía relación con el proyecto). Se rehízo con la tienda: abrir la tienda / dependiente / almacén.
+  - **2.1 completado.** `CLAUDE.md`: paso marcado, *Cómo arrancar* (backend) y *Glosario* actualizados.
+- Commit intermedio aprobado por el usuario: `Paso 2.1: proyecto NestJS mínimo`.

@@ -91,7 +91,7 @@ catalogo-tech/                  ← raíz, con este CLAUDE.md
 
 ## Cómo explicar
 - Conceptos antes que sintaxis. No expliques el código línea a línea salvo que te lo pidan.
-- Cada pieza o concepto nuevo: **qué es, para qué sirve y con quién se comunica**. Una analogía breve si ayuda (1–2 frases).
+- Cada pieza o concepto nuevo: **qué es, para qué sirve y con quién se comunica**. Una analogía breve si ayuda (1–2 frases), **siempre con el mundo de una tienda de tecnología / el propio catálogo** (cliente, dependiente, almacén, mostrador…). Nada de analogías de otros ámbitos (restaurantes, etc.): confunden al usuario.
 - Define cada término técnico la primera vez que aparezca (DOM, evento, endpoint, petición HTTP, JSON, puerto, CORS, DTO, schema…).
 - Comentarios en el código: breves, en español, explicando el *para qué*, solo en los archivos clave.
 - Respuestas concisas y estructuradas, sin relleno.
@@ -110,7 +110,7 @@ Comprobar: VS Code + extensión Live Server.
 
 ### Fase 2 · Backend (NestJS, datos en memoria)
 Comprobar: Node.js LTS.
-- [ ] 2.1 Proyecto NestJS mínimo que responde en `localhost:3000`.
+- [x] 2.1 Proyecto NestJS mínimo que responde en `localhost:3000`.
 - [ ] 2.2 API de productos (CRUD) con los datos en un array del service; DTOs y validación. Probar sin frontend (navegador para GET, `curl` para el resto).
 - [ ] 2.3 Conectar frontend y backend: `fetch` y CORS; crear y listar desde la web.
 - [ ] 2.4 Editar y borrar desde la web.
@@ -132,6 +132,13 @@ _(Se completa durante las fases: abrir el frontend, arrancar el backend, arranca
 2. Abrir `frontend/index.html` → clic derecho → **Open with Live Server** (o botón **Go Live** abajo a la derecha).
 3. Se abre `http://127.0.0.1:5500/frontend/index.html`. Para apagar el servidor: clic en **Port : 5500** en la barra de estado.
 
+**Backend (fase 2)**
+1. Abrir una terminal en la carpeta `backend/` (en VS Code: *Terminal → New Terminal* y escribir `cd backend`).
+2. Ejecutar `npm run start:dev`. El servidor queda corriendo en esa pestaña y se reinicia solo al guardar cambios.
+3. Está listo cuando aparece "Nest application successfully started". Comprobar en `http://localhost:3000`.
+4. Para apagarlo: `Ctrl + C` en esa terminal.
+5. Solo la primera vez en otro ordenador (o si falta `node_modules/`): `npm install` dentro de `backend/`.
+
 ## Glosario
 _(Se va completando: término — definición en una línea.)_
 
@@ -148,3 +155,13 @@ _(Se va completando: término — definición en una línea.)_
 - **Repositorio** — carpeta vigilada por Git; su historial vive en la carpeta oculta `.git/`.
 - **Commit** — una foto del proyecto en un momento, con un título que explica qué se hizo.
 - **`.gitignore`** — lista de archivos y carpetas que Git no debe guardar.
+- **Backend / servidor** — programa que se queda encendido esperando peticiones y las responde (el dependiente y el almacén de la tienda).
+- **Node.js** — permite ejecutar JavaScript fuera del navegador; con él corre el backend.
+- **npm / npx** — npm descarga las librerías de un proyecto; npx ejecuta una herramienta sin instalarla de forma permanente.
+- **NestJS** — framework (estructura ya montada) para construir backends con TypeScript.
+- **TypeScript** — JavaScript con tipos: se declara la forma de los datos y avisa de errores antes de ejecutar.
+- **Puerto** — número de "puerta" por la que escucha un programa (Live Server: 5500; backend: 3000).
+- **Petición HTTP** — mensaje que el navegador envía al servidor (p. ej., `GET /` = "dame lo que hay en `/`").
+- **Respuesta / código de estado** — lo que devuelve el servidor, con un número: `200` = bien, `404` = no existe.
+- **Controller** — parte del backend que recibe las peticiones y decide qué hacer según la ruta (el dependiente).
+- **Service** — parte del backend que hace el trabajo y guarda/gestiona los datos (el almacén).

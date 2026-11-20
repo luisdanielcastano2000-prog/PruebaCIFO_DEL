@@ -8,9 +8,9 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 ## Estado actual
 - **Fase:** 2 · Backend (NestJS). Sin empezar.
 - **Siguiente paso:** 2.2 · API de productos (CRUD en memoria). ⛔ **No empezar hasta que el usuario lo diga.**
-- **Procesos corriendo:** servidor NestJS (`npm run start:dev` en `backend/`), puerto 3000.
+- **Procesos corriendo:** ninguno. El servidor NestJS se apagó a petición del usuario mientras esperamos (para encenderlo: ver *Cómo arrancar* en `CLAUDE.md`).
 - **Pendiente de decidir:** nada.
-- **Control de versiones:** Git en local, rama `main`. Commits: `Fase 1` (cierre de la fase 1) y `Paso 2.1: proyecto NestJS mínimo` (intermedio).
+- **Control de versiones:** Git, rama `main`. Commits: `Fase 1` y `Paso 2.1: proyecto NestJS mínimo`. Remoto `origin` = GitHub (público), conectado. **Primer push pendiente**: el usuario debe revocar el token expuesto en el chat, crear uno nuevo y ejecutar `git push -u origin main` en su terminal.
 - **Copias de seguridad:** `~/Documents/proyectos/actividad_01-fase1` (copia de carpeta del fin de la fase 1; se conserva por decisión del usuario).
 
 ---
@@ -33,6 +33,10 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | 2026-11-20 | Plan del paso 2.1 aprobado. El servidor de desarrollo lo arranca **Claude en segundo plano** (opción a). | Elegido por el usuario (Claude recomendaba que lo arrancara el usuario para ver los mensajes en directo). |
 | 2026-11-20 | Las analogías se harán **siempre con una tienda de tecnología / el catálogo** (cliente, dependiente, almacén…). Añadido a "Cómo explicar" en `CLAUDE.md`. | Claude usó una analogía de restaurante y confundió al usuario; el usuario eligió esta opción (a) frente a no usar analogías (b). |
 | 2026-11-20 | No avanzar al paso 2.2 hasta que el usuario lo indique. | Pedido por el usuario. |
+| 2026-11-20 | Se conecta el proyecto a GitHub: `origin` = `https://github.com/luisdanielcastano2000-prog/PruebaCIFO_DEL.git` (repositorio público, estaba vacío). GitHub sale de "fuera de alcance". | Pedido por el usuario. |
+| 2026-11-20 | Email de los commits: el *noreply* de GitHub (`359060953+luisdanielcastano2000-prog@users.noreply.github.com`) en lugar del Gmail. Los 2 commits existentes se reescribieron con ese email (mismo contenido, nuevos identificadores). | El repositorio es público: no exponer el email personal. Opción a, elegida por el usuario. |
+| 2026-11-20 | Login en GitHub con **token** (HTTPS) guardado en el llavero de macOS; el push lo ejecuta el usuario en su terminal y el token nunca se pega en el chat. | Opción a, elegida por el usuario (frente a instalar Homebrew + `gh`). |
+| 2026-11-20 | Claude nunca hace push sin aprobación del usuario. Añadido a la regla 6 de `CLAUDE.md`. | Push publica en internet. |
 
 ---
 
@@ -44,6 +48,7 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 | Node.js | Instalado (LTS) | v26.13.1 |
 | Git | Ya instalado (Command Line Tools de Apple); no hizo falta instalar | 2.39.5 |
 | Homebrew | **No instalado** (se verá en la fase 3) | — |
+| GitHub CLI (`gh`) | No instalado (no hace falta: login con token) | — |
 | NestJS (en `backend/`) | Generado con `npx @nestjs/cli new` | `@nestjs/core` 12.0.1 |
 | npm / npx | Instalados | 11.20.0 |
 | MongoDB, Compass | Sin comprobar (fase 3) | — |
@@ -75,3 +80,10 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
   - Claude explicó `main.ts` / controller / service con una analogía de restaurante; el usuario no la entendió (no tenía relación con el proyecto). Se rehízo con la tienda: abrir la tienda / dependiente / almacén.
   - **2.1 completado.** `CLAUDE.md`: paso marcado, *Cómo arrancar* (backend) y *Glosario* actualizados.
 - Commit intermedio aprobado por el usuario: `Paso 2.1: proyecto NestJS mínimo`.
+- El usuario aprendió a abrir la terminal de VS Code (en Mac, el menú *Terminal* está en la barra superior de la pantalla; alternativa: `Cmd + Shift + P` → "Create New Terminal") y ejecutó `git log --oneline`.
+- Servidor NestJS apagado a petición del usuario.
+- **GitHub** — comprobado: repositorio público y vacío; `gh` no instalado; llavero de macOS (`osxkeychain`) ya configurado para Git.
+  - Email cambiado al *noreply* de GitHub y 2 commits reescritos (`git rebase --root`): `Fase 1` → `540eb65`, `Paso 2.1…` → `aade6ed`. Comprobado que el Gmail no aparece en ningún archivo ni commit.
+  - `git remote add origin …` hecho. Pendiente: crear token y primer push (usuario).
+  - El usuario creó un token y lo pegó en el chat. Claude **no lo usó** y recomendó revocarlo (queda guardado en el historial de la conversación) y crear uno nuevo para el push.
+  - Commit `Conexión con GitHub` (cambios de `CLAUDE.md` y `BITACORA.md`), aprobado por el usuario.

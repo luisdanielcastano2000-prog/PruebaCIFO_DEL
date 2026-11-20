@@ -2,7 +2,7 @@
 
 ## Contexto
 - Proyecto de aprendizaje. El usuario **no sabe programar**: el objetivo es que entienda **las piezas** de una aplicación fullstack y **cómo se comunican**, no la sintaxis.
-- Sistema: **macOS**. Todo se ejecuta **en local**. Usamos **Git en local** (repositorio en la raíz del proyecto, rama `main`, autor configurado solo para este proyecto). Sin repositorio remoto (GitHub) salvo que el usuario lo pida.
+- Sistema: **macOS**. Todo se ejecuta **en local**. Usamos **Git** (repositorio en la raíz del proyecto, rama `main`, autor `Luis` con el email *noreply* de GitHub, configurado solo para este proyecto). Remoto `origin` = GitHub `luisdanielcastano2000-prog/PruebaCIFO_DEL` (**público**). Acceso por HTTPS con token guardado en el llavero de macOS.
 - Idioma: explicaciones y comentarios en **español**; nombres de código (variables, archivos, rutas) en **inglés**.
 
 ## Qué construimos
@@ -79,7 +79,7 @@ catalogo-tech/                  ← raíz, con este CLAUDE.md
 3. **Pasos pequeños.** Un cambio cada vez. Después de cada paso, comprueba que funciona y enseña al usuario a verificarlo él mismo (navegador, terminal o Compass).
 4. **Instalaciones.** Instala solo lo que necesita la fase en curso. Antes, comprueba si ya existe, explica qué es y para qué sirve, y pide permiso. Usa versiones LTS/estables actuales. Evita instalaciones globales con npm cuando haya alternativa (`npx`).
 5. **Nada destructivo sin confirmación**: borrar archivos o carpetas, reinstalar, vaciar la base de datos, etc.
-6. **Git como red de seguridad.** Antes de modificar un archivo que ya funciona, di qué va a cambiar. Al cerrar cada fase, propón un commit con el título de la fase (p. ej., `Fase 2`); si conviene guardar un punto intermedio, propónlo también. **Nunca hagas commit sin aprobación del usuario**, y nada de comandos que reescriban o borren historial (`reset --hard`, `push --force`…) sin confirmación.
+6. **Git como red de seguridad.** Antes de modificar un archivo que ya funciona, di qué va a cambiar. Al cerrar cada fase, propón un commit con el título de la fase (p. ej., `Fase 2`); si conviene guardar un punto intermedio, propónlo también. **Nunca hagas commit ni push sin aprobación del usuario**; el repositorio es público: no subir datos personales, contraseñas ni tokens. Nada de comandos que reescriban o borren historial (`reset --hard`, `push --force`…) sin confirmación.
 7. **Errores.** Explica en lenguaje sencillo qué ha pasado, la causa probable y la solución propuesta; espera aprobación antes de aplicarla. No pruebes soluciones a ciegas en bucle.
 8. **Terminal.** Indica siempre en qué carpeta se ejecuta cada comando y si deja un proceso corriendo (p. ej., el servidor). Si hacen falta varias pestañas de terminal, dilo.
 9. **Generadores primero.** Usa el Nest CLI en lugar de escribir a mano el código repetitivo:
@@ -98,7 +98,7 @@ catalogo-tech/                  ← raíz, con este CLAUDE.md
 - Cuando ayude, muestra el recorrido de un dato con un esquema de texto.
 
 ## Fuera de alcance (salvo que el usuario lo pida)
-GitHub u otros repositorios remotos, autenticación, despliegue, Docker, frameworks de frontend (React, Vue…), librerías CSS, TypeScript en el frontend, `localStorage` (rompería la lección de la fase 1), tests automáticos, variables de entorno con `@nestjs/config` (la URI de MongoDB va en `app.module.ts`, con un comentario que lo explique).
+Autenticación en la app, despliegue, Docker, frameworks de frontend (React, Vue…), librerías CSS, TypeScript en el frontend, `localStorage` (rompería la lección de la fase 1), tests automáticos, variables de entorno con `@nestjs/config` (la URI de MongoDB va en `app.module.ts`, con un comentario que lo explique).
 
 ## Fases
 ### Fase 1 · Frontend simple
@@ -155,6 +155,10 @@ _(Se va completando: término — definición en una línea.)_
 - **Repositorio** — carpeta vigilada por Git; su historial vive en la carpeta oculta `.git/`.
 - **Commit** — una foto del proyecto en un momento, con un título que explica qué se hizo.
 - **`.gitignore`** — lista de archivos y carpetas que Git no debe guardar.
+- **GitHub** — web que guarda una copia del repositorio en internet (el almacén central en la nube).
+- **Remoto (`origin`)** — la dirección del repositorio en GitHub con la que está conectado el local.
+- **Push** — enviar los commits del Mac a GitHub.
+- **Token** — llave de acceso que sustituye a la contraseña de GitHub en la terminal; es secreta como una contraseña.
 - **Backend / servidor** — programa que se queda encendido esperando peticiones y las responde (el dependiente y el almacén de la tienda).
 - **Node.js** — permite ejecutar JavaScript fuera del navegador; con él corre el backend.
 - **npm / npx** — npm descarga las librerías de un proyecto; npx ejecuta una herramienta sin instalarla de forma permanente.

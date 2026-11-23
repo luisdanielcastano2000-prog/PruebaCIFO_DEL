@@ -11,6 +11,34 @@ Es un proyecto de aprendizaje: una aplicación *fullstack* construida en 3 fases
 | Backend (API REST) | NestJS + Mongoose (`backend/`) | `http://localhost:3000` | El dependiente, que atiende los pedidos |
 | Base de datos | MongoDB Community 9 | `mongodb://localhost:27017`, base `catalogo_tech` | El almacén con estanterías fijas |
 
+## En internet (versión publicada)
+
+**Abre la web:** https://luisdanielcastano2000-prog.github.io/PruebaCIFO_DEL/
+
+Las mismas tres piezas, pero en servicios de internet gratuitos:
+
+| Pieza | Servicio | Dirección |
+|---|---|---|
+| Frontend | GitHub Pages (publica la raíz de la rama `main`) | `https://luisdanielcastano2000-prog.github.io/PruebaCIFO_DEL/` |
+| Backend | Render (servicio *Free*, Frankfurt; carpeta `backend`) | `https://pruebacifo-del.onrender.com` (lista: `/products`) |
+| Base de datos | MongoDB Atlas (clúster M0 gratis) | base `catalogo_tech`, colección `products` |
+
+```
+ Navegador (cualquier sitio) ──► GitHub Pages: descarga la web (index.html, styles.css, app.js)
+          │
+          └── fetch ──► Render: backend NestJS ──► Mongoose ──► MongoDB Atlas
+```
+
+- **Mismo código que en el Mac.** `frontend/app.js` mira desde dónde se abre: en `127.0.0.1`/`localhost` usa `http://localhost:3000`; en cualquier otro sitio, Render.
+- **Ajustes de Render** (*Environment*): `MONGODB_URI` (cadena de Atlas con la contraseña; **solo ahí**, nunca en el repositorio), `CORS_ORIGINS` = `https://luisdanielcastano2000-prog.github.io`. Build: `npm ci && npm run build` · Start: `npm run start:prod`.
+- **Actualizar la versión publicada:** basta con hacer push a `main`. GitHub Pages y Render vuelven a publicar solos en 1–3 minutos.
+- **Ver los datos:** Atlas → *Clusters* → *Browse Collections* → `catalogo_tech` → `products`.
+
+**A tener en cuenta**
+- Render gratis **se duerme** tras 15 minutos sin visitas: la primera carga puede tardar ~1 minuto.
+- Atlas M0 **se pausa** tras 30 días sin uso: se reactiva desde la web de Atlas (*Resume*).
+- La web **no tiene login**: cualquiera con el enlace puede crear, editar y borrar productos.
+
 ## Requisitos (ya instalados en este Mac)
 
 - **VS Code** con la extensión **Live Server**.
@@ -100,6 +128,8 @@ actividad_01/
 ├── README.md          ← este archivo
 ├── CLAUDE.md          ← plan del proyecto y reglas de trabajo
 ├── BITACORA.md        ← registro de lo hecho y de las decisiones
+├── index.html         ← entrada de GitHub Pages: redirige a frontend/
+├── .nojekyll          ← pide a GitHub Pages que publique los archivos tal cual
 ├── frontend/          ← index.html, styles.css, app.js
 └── backend/
     └── src/
@@ -120,3 +150,7 @@ actividad_01/
 | La web se queda en "Cargando productos…" | MongoDB está apagado: el backend espera a que vuelva | Arranca MongoDB (paso 1) |
 | Al arrancar el backend: `EADDRINUSE` (puerto 3000 ocupado) | Ya hay otro backend corriendo | Ciérralo con `Ctrl + C` en su terminal |
 | `mongod` se cierra nada más arrancar | Ya hay otro MongoDB corriendo, o falta la carpeta `~/mongodb-data` | Cierra el otro, o crea la carpeta con `mkdir ~/mongodb-data` |
+| **Publicada:** la web tarda ~1 minuto en cargar los productos | Render estaba dormido | Esperar; las siguientes cargas son rápidas |
+| **Publicada:** Render muestra `ERR_SSL_TLSV1_ALERT_INTERNAL_ERROR` al arrancar | Atlas no deja entrar a Render | Atlas → *Network Access*: `0.0.0.0/0` en estado *Active*; luego *Manual Deploy* en Render |
+| **Publicada:** Render muestra `MongoParseError: Invalid scheme` | El valor de `MONGODB_URI` está mal copiado | Debe empezar por `mongodb+srv://`, sin comillas, espacios ni `<` `>` |
+| **Publicada:** "No se puede conectar con el servidor" tras mucho tiempo sin usarla | Atlas pausado (30 días sin uso) o deploy fallido en Render | Reactivar el clúster en Atlas; revisar *Logs* en Render |

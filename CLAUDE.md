@@ -25,6 +25,7 @@ Al empezar las fases 2 y 3, demuestra primero la limitación de la fase anterior
 | Base de datos | MongoDB Community 9.0 (instalado a mano en `~/mongodb`, datos en `~/mongodb-data`; sin Homebrew porque el usuario no es administrador) + MongoDB Compass (`~/Applications`) para ver los datos | `mongodb://localhost:27017`, base `catalogo_tech` |
 
 Flujo final: formulario → `fetch` (JSON) → API NestJS → Mongoose → MongoDB, y vuelta.
+**Publicada (fase 4):** frontend en GitHub Pages (`https://luisdanielcastano2000-prog.github.io/PruebaCIFO_DEL/`), backend en Render (`https://pruebacifo-del.onrender.com`), base en MongoDB Atlas (M0). Mismo código que en local; los ajustes de producción van en variables de entorno de Render.
 CORS activado en el backend solo para el origen de Live Server (`http://127.0.0.1:5500` y `http://localhost:5500`).
 
 ## Modelo de datos: `Product`
@@ -133,11 +134,13 @@ Servicios: MongoDB Atlas (M0), Render (backend), GitHub Pages (frontend). Las cu
 - [x] 4.2 Preparar para producción: variables de entorno en el backend (`MONGODB_URI`, `PORT`, `CORS_ORIGINS`) y URL de la API según dónde se abra el frontend.
 - [x] 4.3 Base de datos en MongoDB Atlas.
 - [x] 4.4 Backend en Render.
-- [ ] 4.5 Frontend en GitHub Pages.
-- [ ] 4.6 Comprobación final + README con las direcciones públicas.
+- [x] 4.5 Frontend en GitHub Pages.
+- [x] 4.6 Comprobación final + README con las direcciones públicas.
 
 ## Cómo arrancar el proyecto
 _(Versión completa y explicada en `README.md`.)_
+
+**Versión publicada:** no hay que arrancar nada; abrir `https://luisdanielcastano2000-prog.github.io/PruebaCIFO_DEL/` (la primera carga puede tardar ~1 min porque Render se duerme). Para actualizarla basta con hacer push a `main`.
 
 **Orden:** primero MongoDB (desde la fase 3), luego el backend y después el frontend (la web pide los productos al backend; si está apagado, muestra "No se puede conectar con el servidor").
 
@@ -214,3 +217,8 @@ _(Se va completando: término — definición en una línea.)_
 - **Variable de entorno** — ajuste que el servidor le da al programa al arrancarlo (p. ej., `MONGODB_URI`); sirve para no escribir contraseñas en el código.
 - **Filtro de excepciones** — pieza de NestJS que captura un tipo de error y decide qué respuesta enviar (aquí: errores de MongoDB → 400 en español).
 - **Delegación de eventos** — un solo "escuchador" en el contenedor (`#product-list`) atiende los clics de todos los botones de las tarjetas.
+- **GitHub Pages** — servicio de GitHub que publica gratis los archivos del repositorio como web (el escaparate de la tienda en la calle).
+- **Render** — servicio donde corre el backend en internet; descarga el código de GitHub, lo compila y lo arranca.
+- **MongoDB Atlas** — MongoDB en la nube, gestionado por la propia empresa MongoDB (el almacén alquilado).
+- **Network Access (Atlas)** — lista de direcciones que pueden conectarse a la base; `0.0.0.0/0` = cualquiera (con usuario y contraseña).
+- **Dormir (Render gratis)** — tras 15 minutos sin visitas, Render apaga el backend y lo vuelve a encender en la siguiente petición (~1 minuto).

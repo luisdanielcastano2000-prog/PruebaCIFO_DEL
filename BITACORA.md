@@ -6,10 +6,10 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 ---
 
 ## Estado actual (actualizado 2026-11-23)
-- **Fase:** 4 · Revisión y deploy. Hechos 4.1–4.4 (backend en `https://pruebacifo-del.onrender.com`). **En curso: 4.5 (GitHub Pages)**. Pendiente: 4.6.
-- **Dónde nos quedamos:** backend en Render funcionando; dirección puesta en `frontend/app.js` y subida a GitHub. Falta que el usuario active GitHub Pages y probar la web publicada (4.5), luego 4.6.
-- **Para retomar el lunes:** ver `RETOMAR.md` (prompt para pegar + lista de comprobación).
-- **Procesos corriendo:** ninguno cuando se cierre la sesión (MongoDB local y el backend local los arrancó Claude y se apagan con ella; los datos locales quedan en `~/mongodb-data`).
+- **Fase:** 4 · Revisión y deploy — **completada** (4.1–4.6). **Proyecto terminado**: las 4 fases hechas.
+- **Dónde nos quedamos:** app publicada y verificada: web `https://luisdanielcastano2000-prog.github.io/PruebaCIFO_DEL/` → API `https://pruebacifo-del.onrender.com` → Atlas. Siguiente paso: ninguno previsto; lo que el usuario quiera ampliar.
+- **Para retomar:** `RETOMAR.md` (estado de los servicios y avisos).
+- **Procesos corriendo:** ninguno en el Mac. En internet: Render (se duerme solo) y Atlas.
 - **Pendiente de decidir:** nada.
 - **Control de versiones:** Git, rama `main`, conectada con GitHub (`origin`, público). Todo subido a GitHub, incluido `RETOMAR.md` (push aprobado por el usuario).
 - **Copias de seguridad:** `~/Documents/proyectos/actividad_01-fase1` (copia de carpeta del fin de la fase 1; se conserva por decisión del usuario).
@@ -219,5 +219,12 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 ### 2026-11-23
 - Sesión retomada con "seguimos": leídos `CLAUDE.md`, `BITACORA.md` y `RETOMAR.md`. Repositorio limpio y al día con GitHub. Seguimos en el **4.4** (Render no conecta con Atlas). Dados al usuario todos los pasos de la lista de `RETOMAR.md` de una vez.
 - **4.4 · Render completado.** Dirección pública del backend: `https://pruebacifo-del.onrender.com` (la del servicio, no `catalogo-tech-api…`). Comprobado por Claude con `curl`: `GET /products` → `200` y `[]` (conecta con Atlas); la cabecera CORS permite `https://luisdanielcastano2000-prog.github.io`. Paso marcado en `CLAUDE.md`.
-  - Sin confirmar: que la contraseña de Atlas se cambiara por una nueva (la anterior apareció en el chat).
+  - Confirmado por el usuario: la contraseña de Atlas se cambió por una nueva (la anterior apareció en el chat).
 - **4.5 · GitHub Pages** — plan aprobado. `frontend/app.js`: `PRODUCTION_API_URL` = `https://pruebacifo-del.onrender.com`. `RETOMAR.md` actualizado. Commit y push aprobados por el usuario. Falta: el usuario activa Pages (*Settings → Pages → main / (root)*).
+  - El usuario activó Pages y creó un producto ("Chachi") desde la web publicada. Comprobado por Claude: `https://luisdanielcastano2000-prog.github.io/PruebaCIFO_DEL/` → `200`, el `app.js` publicado apunta a Render, y `GET /products` en Render devuelve ese producto (guardado en Atlas). **4.5 completado.** Paso marcado en `CLAUDE.md`.
+- **4.6 · Comprobación final** — plan aprobado. El usuario probó en la web publicada crear, editar y borrar y miró los datos en Atlas ("Hecho"). Comprobado por Claude: la API de Render devuelve solo "Infinity" (movil, 800 €, stock 2): "Chachi" ya no está (el borrado llegó a Atlas). La edición no se puede comprobar desde aquí porque el producto editado fue borrado; queda como verificada por el usuario.
+  - `README.md`: nuevo apartado *En internet (versión publicada)* (direcciones, esquema, ajustes de Render sin secretos, cómo actualizar, avisos: Render se duerme, Atlas se pausa a los 30 días, sin login), estructura con `index.html` y `.nojekyll`, y 4 filas nuevas en *Si algo falla* (errores vistos en el 4.4).
+  - `CLAUDE.md`: 4.6 marcado, direcciones públicas en *Las tres piezas* y *Cómo arrancar*, 5 términos nuevos en el *Glosario*. `RETOMAR.md`: todo en verde.
+  - **4.6 completado.**
+- **Cierre de la fase 4 (y del proyecto).** Commit `Fase 4` + push, aprobados por el usuario.
+  - Resumen de lo aprendido: publicar es llevar las mismas tres piezas a servicios de internet (GitHub Pages, Render, Atlas); el código no cambia, solo las direcciones, que se dan con variables de entorno; los secretos (contraseña de Atlas) viven solo en los ajustes del servidor, nunca en el repositorio; cada servicio tiene su "portero" (CORS en el backend, *Network Access* en Atlas) y hay que darle permiso a la pieza de al lado; un push a `main` actualiza la versión publicada.

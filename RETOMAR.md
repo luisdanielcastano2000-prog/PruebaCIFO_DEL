@@ -23,7 +23,9 @@ Si el lunes usas **otro ordenador**, cambia la primera línea por:
 |---|---|---|
 | Base de datos | MongoDB Atlas (Cluster0, M0 gratis) | ✅ Creada. Usuario: `luisdanielcastano2000_db_user` |
 | Backend | Render (`catalogo-tech-api`, Free, Frankfurt) → `https://pruebacifo-del.onrender.com` | ✅ Funciona (paso 4.4 hecho 2026-11-23) |
-| Frontend | GitHub Pages | ⏳ Paso 4.5: dirección de Render ya puesta en `app.js`; falta activar Pages |
+| Frontend | GitHub Pages → `https://luisdanielcastano2000-prog.github.io/PruebaCIFO_DEL/` | ✅ Funciona (paso 4.5 hecho 2026-11-23) |
+
+**✅ Proyecto terminado (2026-11-23):** fases 1–4 completas y la app publicada funcionando. Las secciones 1, 3 y 4 de abajo son históricas (cómo se retomó el 4.4).
 
 Ajustes de Render que **ya están bien** (no tocar):
 

@@ -6,7 +6,7 @@
 // - si la página se abre en el Mac (Live Server), el backend también está en el Mac;
 // - si se abre desde internet (GitHub Pages), el backend está en Render.
 const IS_LOCAL = ['127.0.0.1', 'localhost'].includes(window.location.hostname);
-const PRODUCTION_API_URL = 'https://PENDIENTE.onrender.com'; // se rellena en el paso 4.5, cuando Render nos dé la dirección
+const PRODUCTION_API_URL = 'https://pruebacifo-del.onrender.com'; // dirección pública del backend en Render
 const API_URL = (IS_LOCAL ? 'http://localhost:3000' : PRODUCTION_API_URL) + '/products';
 
 // Copia local de lo último que nos ha enviado el backend (solo para pintar; la verdad está en el servidor)

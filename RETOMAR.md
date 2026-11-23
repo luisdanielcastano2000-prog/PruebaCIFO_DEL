@@ -22,8 +22,8 @@ Si el lunes usas **otro ordenador**, cambia la primera línea por:
 | Pieza | Servicio | Estado |
 |---|---|---|
 | Base de datos | MongoDB Atlas (Cluster0, M0 gratis) | ✅ Creada. Usuario: `luisdanielcastano2000_db_user` |
-| Backend | Render (`catalogo-tech-api`, Free, Frankfurt) | ⚠️ Compila y arranca, **no conecta con Atlas** |
-| Frontend | GitHub Pages | ⏳ Pendiente (paso 4.5) |
+| Backend | Render (`catalogo-tech-api`, Free, Frankfurt) → `https://pruebacifo-del.onrender.com` | ✅ Funciona (paso 4.4 hecho 2026-11-23) |
+| Frontend | GitHub Pages | ⏳ Paso 4.5: dirección de Render ya puesta en `app.js`; falta activar Pages |
 
 Ajustes de Render que **ya están bien** (no tocar):
 

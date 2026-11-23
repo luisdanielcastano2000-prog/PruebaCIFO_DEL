@@ -132,7 +132,7 @@ Servicios: MongoDB Atlas (M0), Render (backend), GitHub Pages (frontend). Las cu
 - [x] 4.1 Revisión completa (código + documentación) y correcciones.
 - [x] 4.2 Preparar para producción: variables de entorno en el backend (`MONGODB_URI`, `PORT`, `CORS_ORIGINS`) y URL de la API según dónde se abra el frontend.
 - [x] 4.3 Base de datos en MongoDB Atlas.
-- [ ] 4.4 Backend en Render.
+- [x] 4.4 Backend en Render.
 - [ ] 4.5 Frontend en GitHub Pages.
 - [ ] 4.6 Comprobación final + README con las direcciones públicas.
 

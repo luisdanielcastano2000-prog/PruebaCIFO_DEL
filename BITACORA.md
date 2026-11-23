@@ -5,9 +5,9 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
 
 ---
 
-## Estado actual (actualizado 2026-11-20, al irnos de fin de semana)
-- **Fase:** 4 · Revisión y deploy. Hechos 4.1 (revisión), 4.2 (preparar producción) y 4.3 (Atlas). **En curso: 4.4 (backend en Render)**. Pendientes: 4.5 (GitHub Pages) y 4.6 (comprobación final).
-- **Dónde nos quedamos:** Render ya compila y arranca el backend, pero no conecta con Atlas: error `ERR_SSL_TLSV1_ALERT_INTERNAL_ERROR` = Atlas no deja entrar a Render. Falta comprobar/añadir `0.0.0.0/0` en Atlas → *Security → Network Access* (estado **Active**) y relanzar el deploy en Render (*Manual Deploy → Deploy latest commit*).
+## Estado actual (actualizado 2026-11-23)
+- **Fase:** 4 · Revisión y deploy. Hechos 4.1–4.4 (backend en `https://pruebacifo-del.onrender.com`). **En curso: 4.5 (GitHub Pages)**. Pendiente: 4.6.
+- **Dónde nos quedamos:** backend en Render funcionando; dirección puesta en `frontend/app.js` y subida a GitHub. Falta que el usuario active GitHub Pages y probar la web publicada (4.5), luego 4.6.
 - **Para retomar el lunes:** ver `RETOMAR.md` (prompt para pegar + lista de comprobación).
 - **Procesos corriendo:** ninguno cuando se cierre la sesión (MongoDB local y el backend local los arrancó Claude y se apagan con ella; los datos locales quedan en `~/mongodb-data`).
 - **Pendiente de decidir:** nada.
@@ -215,3 +215,9 @@ El plan completo y las reglas de trabajo están en `CLAUDE.md`; aquí va **lo qu
   - El usuario pegó en el chat su cadena de Atlas **con la contraseña** (no se copia aquí). Problemas vistos: la contraseña sigue entre `<` `>` (hay que quitarlos) y fue inventada en Render sin ponerla en Atlas. El usuario de Atlas se llama `luisdanielcastano2000_db_user` (no `catalogo_app`; vale igual). Recomendado: poner en Atlas una contraseña **nueva**, solo letras y números (la anterior quedó expuesta en el chat), y usar esa misma en Render.
   - Siguiente intento: la cadena ya se interpreta bien, pero `ERR_SSL_TLSV1_ALERT_INTERNAL_ERROR` (tlsv1 alert internal error) al conectar con Atlas. Es el síntoma típico de que **Atlas rechaza la IP** de Render: falta `0.0.0.0/0` en *Network Access* (o aún no estaba activo). Indicado al usuario cómo añadirlo.
 - **Pausa de fin de semana** (pedida por el usuario). Creado `RETOMAR.md` con el prompt para el lunes, el estado exacto de Render/Atlas y la lista de lo que queda. Seguridad pendiente de confirmar: que la contraseña nueva de Atlas (solo letras y números) esté puesta en Atlas y en Render, ya que la anterior apareció en el chat.
+
+### 2026-11-23
+- Sesión retomada con "seguimos": leídos `CLAUDE.md`, `BITACORA.md` y `RETOMAR.md`. Repositorio limpio y al día con GitHub. Seguimos en el **4.4** (Render no conecta con Atlas). Dados al usuario todos los pasos de la lista de `RETOMAR.md` de una vez.
+- **4.4 · Render completado.** Dirección pública del backend: `https://pruebacifo-del.onrender.com` (la del servicio, no `catalogo-tech-api…`). Comprobado por Claude con `curl`: `GET /products` → `200` y `[]` (conecta con Atlas); la cabecera CORS permite `https://luisdanielcastano2000-prog.github.io`. Paso marcado en `CLAUDE.md`.
+  - Sin confirmar: que la contraseña de Atlas se cambiara por una nueva (la anterior apareció en el chat).
+- **4.5 · GitHub Pages** — plan aprobado. `frontend/app.js`: `PRODUCTION_API_URL` = `https://pruebacifo-del.onrender.com`. `RETOMAR.md` actualizado. Commit y push aprobados por el usuario. Falta: el usuario activa Pages (*Settings → Pages → main / (root)*).
